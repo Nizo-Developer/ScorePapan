@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="design.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="playerName">
+        <table class="name" style="position: sticky;">
+            <tr id="baris" style="position: sticky;">
+                <td class="data">player1</td>
+                <td class="data">player2</td>
+            </tr>
+        </table>
+    </div>
+    <div style="width: 100%; display: absolute; margin-bottom: 45%;">
+        <div class="player">
+            <table id="dataContent" class="score" style="margin-bottom: -40%;">
+                <tr id="baris">
+                    <td class="data">player1</td>
+                    <td class="data">player2</td>
+                </tr>
+            </table>
+        </div>
+        <hr id="bottom">
+    </div>
+    <div class="btn-container">
+        <a href="#bottom"><button class="btn" onclick="inputing(0)">player1</button></a>
+        <a href="#bottom"><button class="btn" onclick="inputing(0)">player2</button></a>
+    </div>
+    <script src="otak.js"></script>
+</body>
+</html>
