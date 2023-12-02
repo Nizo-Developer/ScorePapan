@@ -97,9 +97,9 @@ function notif(con, p, team) {
             not.style.display = "flex";
             nobg.style.display = "flex";
         } else if (con == 2) {
-            inputing(team)
             not.style.display = "none";
             nobg.style.display = "none";
+            inputing(team)
         } else {
             co.notif = parseInt(0)
             not.style.display = "none";
