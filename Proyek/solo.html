@@ -10,8 +10,8 @@
     <div class="playerName">
         <table class="name" style="position: sticky;">
             <tr id="baris" style="position: sticky;">
-                <td class="data">player1</td>
-                <td class="data">player2</td>
+                <td class="data" id="p1">player1</td>
+                <td class="data" id="p2">player2</td>
             </tr>
         </table>
     </div>
@@ -27,8 +27,8 @@
         <hr id="bottom">
     </div>
     <div class="btn-container">
-        <a href="#bottom"><button class="btn sub" onclick="notif(1, 1, 1, 1)">player1</button></a>
-        <a href="#bottom"><button class="btn sub" onclick="notif(1, 2, 2, 1)">player2</button></a>
+        <a href="#bottom"><button class="btn sub" id="b1" onclick="notif(1, 1, 1, 1)">player1</button></a>
+        <a href="#bottom"><button class="btn sub" id="b2" onclick="notif(1, 2, 2, 1)">player2</button></a>
         <!-- <button class="btn" onclick="inputing(1, 1)">player1</button>
         <button class="btn" onclick="inputing(1, 2)">player2</button>
         <button class="btn" onclick="inputing(2, 3)">player3</button>
@@ -41,8 +41,15 @@
             <a href="#bottom"><button class="btn btn-n" onclick="notif(2)">OKE</button></a>
             <a href="#bottom"><button class="btn btn-n" onclick="notif(0)">CANCEL</button></a>
         </div>
-        
     </div>
+    <script>
+        var player1 = prompt("Masukkan Player 1");
+        var player2 = prompt("Masukkan Player 2");
+        document.getElementById("p1").innerHTML = player1;
+        document.getElementById("p2").innerHTML = player2;
+        document.getElementById("b1").innerHTML = player1;
+        document.getElementById("b2").innerHTML = player2;
+    </script>
     <script src="otak-experimental.js"></script>
 </body>
 </html>
