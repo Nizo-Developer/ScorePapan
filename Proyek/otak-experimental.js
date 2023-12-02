@@ -90,11 +90,9 @@ function notif(con, p, teaming, team) {
     } 
     if (teaming !== undefined) {
         co.teaming = parseInt(teaming)
-        var tmg = co.teaming
     }
     if (team !== undefined) {
         co.team = parseInt(team)
-        var tm = co.team
     }
     console.log("x", co.notif, "y", co.teaming, "z", co.team)
 
@@ -109,8 +107,12 @@ function notif(con, p, teaming, team) {
             var mouseX = event.clientX;
             var mouseY = event.clientY - 150;
 
-            not.style.left = mouseX + 'px';
-            not.style.top = mouseY + 'px';
+            //bisa ga tuh?? bisa td mkdnya biar notifnya ngikutin laayr yang di klik jd istilahnya lebih deket di hp kurang inget gw hasilnya
+            //iyah buat mobile aja @media only screen and (max-width: 600px) {} dc?
+            //gas
+            //bentar ngelag oke
+            not.style.left = "50%";
+            not.style.top = "70%";
             kondisi();
             cl("raw")
         };
