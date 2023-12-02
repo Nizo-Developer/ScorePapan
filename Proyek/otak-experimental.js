@@ -28,7 +28,7 @@ function inputing() {
     var tm = co.team
 
     //p (Pemain)
-    //k (Kelompok / Tim)
+    //k (Jumlah pemain dalam 1 tim)
 
     if (tm == 1) {
         var p = 2
@@ -137,6 +137,4 @@ function notif(con, p, teaming, team) {
         }   
         cl("pe")
     }
-
-    
 }
