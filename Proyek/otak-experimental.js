@@ -1,5 +1,6 @@
 var score1 = 1;
 var score2 = 1;
+var co;
 
 fetch("memo-otak.json")
     .then(response => response.json())
@@ -71,10 +72,15 @@ function notif(con, p, team) {
     var not = document.getElementById("notif");
     var nobg = document.getElementById("notif-bg");
     var sub = document.getElementsByClassName("sub");
-    co.notif = parseInt(p)
+    if (p !== undefined) {
+        co.notif = parseInt(p)
+        var nt = co.notif
+        console.log("ini p", p)
+    }
+    console.log("ini nt", nt)
     cl("ini" + co.notif)
 
-    if (co.notif > 0) {
+    if (nt > 0) {
         for (var i = 0; i < sub.length; i++) {
             sub[i].addEventListener("mouseup", tp);
             cl(i)
@@ -86,10 +92,11 @@ function notif(con, p, team) {
 
             not.style.left = mouseX + 'px';
             not.style.top = mouseY + 'px';
-            kondisi()
+            kondisi();
+            cl("raw")
         };
     } else {
-        kondisi()
+        kondisi();
     }
     
     function kondisi() {
@@ -105,6 +112,7 @@ function notif(con, p, team) {
             not.style.display = "none";
             nobg.style.display = "none";
         }   
+        cl("pe")
     }
 
     
