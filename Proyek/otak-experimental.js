@@ -1,7 +1,8 @@
 var score1 = 1;
 var score2 = 1;
-var co;
+var co = {};
 
+//Mengambil data dari json memo-otak.json
 fetch("memo-otak.json")
     .then(response => response.json())
     .then(data => {
@@ -9,19 +10,25 @@ fetch("memo-otak.json")
     })
     .catch(error => console.error('Error:', error));
 
+//custom console log; mwehe jd lebih singkat contoh cl("hello world")
 function cl(conlog) {
     console.log(conlog)
 }
 
-function inputing(team) {
+function inputing(teaming, team) {
     //Membuat Baris (tr)
     var baris = document.createElement("tr");
+
     //Menyeting Atribut dari tr di atas (Atribut, Value)
     baris.setAttribute("id", "baris");
 
+    //noda (Nomor Data; deklarasi co.notif dalam fungsi inputing)
     var noda = co.notif
 
-    if (team == 0) {
+    //p (Pemain)
+    //k (Kelompok / Tim)
+
+    if (team == 1) {
         var p = 2
         var k = 1
     } else {
@@ -38,12 +45,15 @@ function inputing(team) {
         baris.appendChild(kolom)
         cl("i" + i + noda)
         if (i == noda && k == 2) {
-            if (team == 1) {
+            cl("teaming" + teaming)
+            if (teaming == 1) {
                 kolom.innerHTML = score1;
                 score1++
+                cl("x")
             } else {
                 kolom.innerHTML = score2;
                 score2++
+                cl("y")
             };
             cl("yes")
         } else if (i == noda && k == 1) {
@@ -68,7 +78,7 @@ function inputing(team) {
     cl("aa" + co.notif)
 }
 
-function notif(con, p, team) {
+function notif(con, p, teaming, team) {
     var not = document.getElementById("notif");
     var nobg = document.getElementById("notif-bg");
     var sub = document.getElementsByClassName("sub");
@@ -76,9 +86,17 @@ function notif(con, p, team) {
         co.notif = parseInt(p)
         var nt = co.notif
         console.log("ini p", p)
+    } 
+    if (teaming !== undefined) {
+        co.teaming = parseInt(teaming)
+        var tmg = co.teaming
     }
-    console.log("ini nt", nt)
-    cl("ini" + co.notif)
+    if (team !== undefined) {
+        co.team = parseInt(team)
+        var tm = co.team
+    }
+    console.log("x", nt, "y", tmg, "z", tm)
+
 
     if (nt > 0) {
         for (var i = 0; i < sub.length; i++) {
@@ -106,9 +124,11 @@ function notif(con, p, team) {
         } else if (con == 2) {
             not.style.display = "none";
             nobg.style.display = "none";
-            inputing(team)
+            inputing(tmg, tm)
         } else {
             co.notif = parseInt(0)
+            co.teaming = parseInt(0)
+            co.team = parseInt(0)
             not.style.display = "none";
             nobg.style.display = "none";
         }   
