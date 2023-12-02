@@ -27,9 +27,22 @@
         <hr id="bottom">
     </div>
     <div class="btn-container">
-        <a href="#bottom"><button class="btn" onclick="inputing(0)">player1</button></a>
-        <a href="#bottom"><button class="btn" onclick="inputing(0)">player2</button></a>
+        <a href="#bottom"><button class="btn sub" onclick="notif(1, 1, 1, 1)">player1</button></a>
+        <a href="#bottom"><button class="btn sub" onclick="notif(1, 2, 2, 1)">player2</button></a>
+        <!-- <button class="btn" onclick="inputing(1, 1)">player1</button>
+        <button class="btn" onclick="inputing(1, 2)">player2</button>
+        <button class="btn" onclick="inputing(2, 3)">player3</button>
+        <button class="btn" onclick="inputing(2, 4)">player4</button> -->
     </div>
-    <script src="otak.js"></script>
+    <div class="notif-bg" id="notif-bg"></div>
+    <div class="notif" id="notif">
+        Klik oke untuk mengkonfirmasi
+        <div class="flex" style="gap: 5px;">
+            <a href="#bottom"><button class="btn btn-n" onclick="notif(2)">OKE</button></a>
+            <a href="#bottom"><button class="btn btn-n" onclick="notif(0)">CANCEL</button></a>
+        </div>
+        
+    </div>
+    <script src="otak-experimental.js"></script>
 </body>
 </html>

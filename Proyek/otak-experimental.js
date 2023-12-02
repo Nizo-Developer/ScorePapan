@@ -15,7 +15,7 @@ function cl(conlog) {
     console.log(conlog)
 }
 
-function inputing(teaming, team) {
+function inputing() {
     //Membuat Baris (tr)
     var baris = document.createElement("tr");
 
@@ -24,11 +24,13 @@ function inputing(teaming, team) {
 
     //noda (Nomor Data; deklarasi co.notif dalam fungsi inputing)
     var noda = co.notif
+    var tmg = co.teaming
+    var tm = co.team
 
     //p (Pemain)
     //k (Kelompok / Tim)
 
-    if (team == 1) {
+    if (tm == 1) {
         var p = 2
         var k = 1
     } else {
@@ -45,8 +47,7 @@ function inputing(teaming, team) {
         baris.appendChild(kolom)
         cl("i" + i + noda)
         if (i == noda && k == 2) {
-            cl("teaming" + teaming)
-            if (teaming == 1) {
+            if (tmg == 1) {
                 kolom.innerHTML = score1;
                 score1++
                 cl("x")
@@ -95,7 +96,7 @@ function notif(con, p, teaming, team) {
         co.team = parseInt(team)
         var tm = co.team
     }
-    console.log("x", nt, "y", tmg, "z", tm)
+    console.log("x", co.notif, "y", co.teaming, "z", co.team)
 
 
     if (nt > 0) {
@@ -124,7 +125,7 @@ function notif(con, p, teaming, team) {
         } else if (con == 2) {
             not.style.display = "none";
             nobg.style.display = "none";
-            inputing(tmg, tm)
+            inputing()
         } else {
             co.notif = parseInt(0)
             co.teaming = parseInt(0)
