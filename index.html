@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Score Papan</title>
     <style>
@@ -12,10 +12,34 @@
             --t2-height: 350px;
             --t2-width: 250px;
         }
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
         body {
             margin: 0;
             background-color: #fff;
         }
+
+        .scroll-container {
+            width: 100%;
+            overflow-x: auto; 
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .scroll-content {
+            display: flex;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1; 
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: #3498db; /* Warna thumb scrollbar */
+            border-radius: 5px;
+        }
+
         a {
             color: #fff;
             text-decoration: none;
@@ -32,6 +56,8 @@
             font-weight: 500;
             border: 5px solid #35426C;
             transition: none;
+            border-radius: 8px;
+            padding: 5px;
         }
         .btn-body:hover{
             color: white;
@@ -85,39 +111,70 @@
         .cd:hover .line {
             background-color: #35426C;
         }
+        .m-0 {
+            margin: 0;
+        }
+        .m-3 {
+            margin: 20px;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+        .content {
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+        .gap-f {
+            gap: 10%;
+        }
+
+        #scroll {
+            transition: background-color 0.3s ease;
+        }
+
+
+        @media screen and (max-width: 600px) {
+            .scroll-container {
+                justify-content: flex-start;
+            }
+            .gap-f {
+                gap: 5%;
+                margin: 0 70px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid" style="position: fixed; z-index: 10;">
-        <div class="m-0" style="height: var(--height); background-color: #35426C;">
+        <div class="m-0" id="scroll" style="height: var(--height); background-color: #35426C; width: 100%; position: fixed; box-shadow: 0 15px 15px 10px rgb(0, 0, 0, 0.5)">
             <div class="head-right" style="color: #fff; font-weight: 800;">
-                <div style="background-color: #33344b; width: fit-content; height: var(--height); position: fixed; z-index: 9; padding-right: 2vw;"><i class="fa-solid fa-chess-board" style="margin-left: 2vh; margin-right: 1vh;"></i>Score Papan</div>
-                .
+            <div id="scrollSub" style="background-color: #33344b; width: fit-content; height: var(--height); position: fixed; z-index: 9; padding-right: 2vw;"><i class="fa-solid fa-chess-board" style="margin-left: 2vh; margin-right: 1vh;"></i>Score Papan</div>
+            ㅤ
             </div>
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row m-0">
-            <div class="col py-5 ms-5 my-5" style="padding-right: 100px;">
-                <h1 style="font-weight: 1000;">CREATE YOUR BADMINTON SCOREBOARD</h1>
-                <p style="font-weight: 100;">By using a score papan you can make referee notes with interconnected score displays and make it easier for the referee to calculate the score</p>
+        <div class="row m-0" style="background-image: url(Proyek/scoreboard.jpg); background-size: cover; height: 500px;">
+            <div class="content" style="padding-right: 100px; color: white; background-color: rgb(0, 0, 0, 0.3); backdrop-filter: blur(5px); height: 80%; width: 100%;">
+                
+                <h1 id="adapt" style="font-weight: 1000; margin: 0; margin-top: var(--height);">CREATE YOUR BADMINTON SCOREBOARD</h1>
+                <p id="adapt-sub" style="font-weight: 100;">By using a score papan you can make referee notes with interconnected score displays and make it easier for the referee to calculate the score</p>
                 <div style="display: flex; gap: 5px;">
-                    <div class="btn p-2 px-3 btn-body flex" style="width: fit-content;">
+                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
                         <a href="Proyek/solo.html"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Single</a>
                     </div>
-                    <div class="btn p-2 px-3 btn-body flex" style="width: fit-content;">
+                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
                         <a href="Proyek/duo.html"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Double</a>
                     </div>
                 </div>
             </div>
-            <div class="col m-0 p-0">
-                <div class="m-0" style="background-image: url(Proyek/scoreboard.jpg); background-size: cover; height: 110%; border-radius: 0 0 0 20px;"></div>
-            </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row m-0 my-5 mb-5">
-            <div class="col">
+    <div class="container-fluid scroll-container" style="padding-bottom: 60px;">
+        <div class="row m-0 gap-f">
+            <div class="scroll-content">
                 <div class="cd mx-auto">
                     <h2 class="m-3" style="font-weight: 800; margin-right: 20px;">VERY EAZY TO USE</h2>
                     <div class="line m-3"></div>
@@ -126,16 +183,16 @@
                     </p>
                 </div>
             </div>
-            <div class="col">
+            <div class="scroll-content">
                 <div class="cd mx-auto">
-                    <h3 class="m-3" style="font-weight: 800; margin-right: 20px;">YOU CAN ACCESS EVERYWHERE!</h3>
+                    <h3 class="m-3" style="font-size: 24px; font-weight: 800; margin-right: 20px;">YOU CAN ACCESS EVERYWHERE!</h3>
                     <div class="line m-3"></div>
                     <p class="m-3" style=" font-size: 15px; font-weight: 100; margin-right: 20px;">
                         Score Papan is an Online application, you can record match scores anywhere without the need to download the application. This flexibility allows you to manage and monitor badminton matches effortlessly, anytime and anywhere you are.
                     </p>
                 </div>
             </div>
-            <div class="col">
+            <div class="scroll-content">
                 <div class="cd mx-auto">
                     <h2 class="m-3" style="font-weight: 800; margin-right: 20px;">ONE WORK, TWO RESULTS</h2>
                     <div class="line m-3"></div>
@@ -146,8 +203,50 @@
             </div>
         </div>
     </div>
-    <footer style="height: 300px; background-color: rgb(51, 52, 75); margin-top: 40px;">
+    <footer style="height: 300px; background-color: rgb(51, 52, 75);">
         
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setFontSize();
+            setTransparancy();
+
+            window.addEventListener('resize', setFontSize);
+            window.addEventListener('scroll', setTransparancy);
+        });
+
+        function setFontSize() {
+            var adapt = document.getElementById('adapt');
+            var adaptSub = document.getElementById('adapt-sub');
+
+            var fzapt = parseFloat(window.getComputedStyle(adapt).getPropertyValue("font-size"));
+            var fzaptSub = parseFloat(window.getComputedStyle(adaptSub).getPropertyValue("font-size"));
+
+            var lebarLayar = window.innerWidth;
+            adapt.style.fontSize = lebarLayar * 0.05 + 'px';
+
+            if (fzapt - 5 < 16) {
+                adaptSub.style.fontSize = (lebarLayar * 0.05) - 5 + 'px';
+            } else {
+                adaptSub.style.fontSize = 16 + "px";
+            }
+            console.log('fzapt:', fzapt);
+            console.log('fzaptSub:', fzaptSub);
+        }
+
+        function setTransparancy() {
+            var scroll = document.getElementById('scroll');
+            var scrollSub = document.getElementById('scrollSub')
+            var scrollPosition = window.scrollY;
+
+            if (scrollPosition > 450) { 
+                scroll.style.backgroundColor = "rgb(53, 66, 108, 1)";
+                scrollSub.style.backgroundColor = "rgb(51, 52, 75, 1)";
+            } else {
+                scroll.style.backgroundColor = "rgb(53, 66, 108, 0.1)";
+                scrollSub.style.backgroundColor = "rgb(51, 52, 75, 0.1)";
+            }
+        };
+    </script>
 </body>
 </html>
