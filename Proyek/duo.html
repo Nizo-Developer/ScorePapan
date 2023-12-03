@@ -10,10 +10,10 @@
     <div class="playerName">
         <table class="name" style="position: sticky;">
             <tr id="baris" style="position: sticky;">
-                <td class="data" id="p1">player1</td>
-                <td class="data" id="p2">player2</td>
-                <td class="data" id="p3">player3</td>
-                <td class="data" id="p4">player4</td>
+                <td class="data" id="p1s">player1</td>
+                <td class="data" id="p2s">player2</td>
+                <td class="data" id="p3s">player3</td>
+                <td class="data" id="p4s">player4</td>
             </tr>
         </table>
     </div>
@@ -22,20 +22,20 @@
             <!-- yang ini -->
             <table id="dataContent" class="score" style="margin-bottom: -40%;">
                 <tr id="baris">
-                    <td class="data">player1</td>
-                    <td class="data">player2</td>
-                    <td class="data">player3</td>
-                    <td class="data">player4</td>
+                    <td class="data" id="p1c">player1</td>
+                    <td class="data" id="p2c">player2</td>
+                    <td class="data" id="p3c">player3</td>
+                    <td class="data" id="p4c">player4</td>
                 </tr>
             </table>
         </div>
         <hr id="bottom">
     </div>
     <div class="btn-container">
-        <a href="#bottom"><button class="btn sub" id="b1" onclick="notif(1, 1, 1, 2)">player1</button></a>
-        <a href="#bottom"><button class="btn sub" id="b2" onclick="notif(1, 2, 1, 2)">player2</button></a>
-        <a href="#bottom"><button class="btn sub" id="b3" onclick="notif(1, 3, 2, 2)">player3</button></a>
-        <a href="#bottom"><button class="btn sub" id="b4" onclick="notif(1, 4, 2, 2)">player4</button></a>
+        <a href="#bottom"><button class="btn sub" id="p1b" onclick="notif(1, 1, 1, 2)">player1</button></a>
+        <a href="#bottom"><button class="btn sub" id="p2b" onclick="notif(1, 2, 1, 2)">player2</button></a>
+        <a href="#bottom"><button class="btn sub" id="p3b" onclick="notif(1, 3, 2, 2)">player3</button></a>
+        <a href="#bottom"><button class="btn sub" id="p4b" onclick="notif(1, 4, 2, 2)">player4</button></a>
         <!-- <button class="btn" onclick="inputing(1, 1)">player1</button>
         <button class="btn" onclick="inputing(1, 2)">player2</button>
         <button class="btn" onclick="inputing(2, 3)">player3</button>
@@ -50,18 +50,24 @@
         </div>
     </div>
     <script>
-        var player1 = prompt("Masukkan Player 1");
-        var player2 = prompt("Masukkan Player 2");
-        var player3 = prompt("Masukkan Player 3");
-        var player4 = prompt("Masukkan Player 4");
-        document.getElementById("p1").innerHTML = player1;
-        document.getElementById("p2").innerHTML = player2;
-        document.getElementById("p3").innerHTML = player3;
-        document.getElementById("p4").innerHTML = player4;
-        document.getElementById("b1").innerHTML = player1;
-        document.getElementById("b2").innerHTML = player2;
-        document.getElementById("b3").innerHTML = player3;
-        document.getElementById("b4").innerHTML = player4;
+        var player = [];
+        var index;
+        for (i = 1; i <= 4; i++) {
+            player.push(prompt("Masukkan Player " + i + ":"));
+            for (l = 1; l <= 3; l++) {
+                if (l == 1) {
+                    index = "s"
+                } else if (l == 2) {
+                    index = "c"
+                } else {
+                    index = "b"
+                }
+                console.log("p" + i + index)
+
+                document.getElementById("p" + i + index).innerHTML = player[i-1]
+            };
+        };
+        
     </script>
     <script src="otak-experimental.js"></script>
 </body>
