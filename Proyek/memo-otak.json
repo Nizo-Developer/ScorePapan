@@ -1,5 +1,7 @@
 {
     "notif": 1,
     "teaming": 0,
-    "team": 0
+    "team": 0,
+
+    "conditional": 0
 }

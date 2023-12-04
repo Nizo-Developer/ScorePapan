@@ -3,63 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Scrollbar</title>
+    <title>Checkbox Example</title>
     <style>
-        .scroll-container {
-            white-space: nowrap;
-            overflow-x: auto;
-            padding: 20px;
-            display: flex;
-            width: 100%;
-            box-sizing: border-box;
-            justify-content: center; /* Atur ke tengah pada tampilan desktop */
+        /* Style dasar checkbox */
+        input[type="checkbox"] {
+            appearance: none; /* Hilangkan default styling */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 20px; /* Lebar checkbox */
+            height: 20px; /* Tinggi checkbox */
+            border: 2px solid #333; /* Border checkbox */
+            border-radius: 5px; /* Border radius untuk sudut melengkung */
+            outline: none; /* Hilangkan garis fokus saat dipilih */
+            cursor: pointer; /* Menunjukkan kursor saat dihover */
         }
 
-        .scroll-content {
-            display: flex;
+        /* Style ketika checkbox dicentang */
+        input[type="checkbox"]:checked {
+            background-color: #4CAF50; /* Warna latar belakang saat dicentang */
+            border: 2px solid #45a049; /* Border saat dicentang */
         }
 
-        .card {
-            width: 200px;
-            height: 300px;
-            background-color: #3498db;
-            margin-right: 10px;
+        /* Style label terkait dengan checkbox */
+        label {
+            margin-left: 5px; /* Jarak antara checkbox dan teks label */
+            cursor: pointer; /* Menunjukkan kursor saat dihover */
         }
 
-        /* Firefox custom scrollbar styling */
-        .scroll-container::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .scroll-container::-webkit-scrollbar-thumb {
-            background-color: #3498db;
-            border-radius: 5px;
-        }
-
-        .scroll-container::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
-        }
-
-        .scroll-container::-webkit-scrollbar-thumb {
-            background-color: #3498db;
-            border-radius: 5px;
-        }
-
-        @media screen and (max-width: 767px) {
-            /* Mengubah properti pada tampilan mobile */
-            .scroll-container {
-                justify-content: flex-start; /* Posisikan ke kiri pada tampilan mobile */
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="scroll-container">
-        <div class="scroll-content">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-        </div>
-    </div>
+
+    <input type="checkbox" id="myCheckbox">
+    <label for="myCheckbox">Centang Saya</label>
+
+    <script>
+        // Contoh fungsi yang dijalankan saat checkbox berubah status
+        document.getElementById("myCheckbox").addEventListener("change", function() {
+            if (this.checked) {
+                alert("Checkbox Dicentang!");
+            } else {
+                alert("Checkbox Tidak Dicentang!");
+            }
+        });
+
+    </script>
 </body>
 </html>

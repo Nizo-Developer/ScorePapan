@@ -20,6 +20,109 @@
             background-color: #fff;
         }
 
+        /* MENU */
+        .menu {
+            width: 500px;
+            height: 500px;
+            border-radius: 10px;
+            position: fixed;
+            display: flex;
+            background: #33344b;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 11;
+            box-shadow: 0 0 10px black;
+            color: white;
+        }
+
+        .menu-bg {
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            background-color: rgba(211, 211, 211, 0.5);
+            z-index: 10;
+        }
+
+        .menu-wrapping {
+            height: 100%;
+            width: 100%;
+        }
+
+        .menu-head {
+            height: 10%;
+            background-color: #262739;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .menu-main {
+            margin: 0 20px;
+            display: flex;
+            height: 90%;
+        }
+
+        .menu-close {
+            margin: 10px;
+            height: 20px;
+            width: 20px;
+            background-color: red;
+            border-radius: 8px;
+            border: 5px solid #262739;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-close:hover {
+            background-color: red;
+        }
+
+        .menu-close:active {
+            height: 25px;
+            width: 10%;
+            background-color: rgb(255, 0, 0);
+            border: 5px solid #262739;
+            border-radius: 10px;
+        }
+
+        .menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-btn p {
+            align-items: center;
+            display: flex;
+            gap: 10px;
+            font-size: 20px;
+        }
+
+        .menu-input {
+            display: flex;
+            flex-direction: column;
+        }
+        
+
+        /* MENU BUTTON */
+        input[type="checkbox"] {
+            appearance: none;
+            width: 40px;
+            height: 40px;
+            border: 5px solid #35426C;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: white;
+        }
+
+        /* SCROLL */
         .scroll-container {
             width: 100%;
             overflow-x: auto; 
@@ -48,6 +151,8 @@
             display: flex;
             justify-content: center;
         }
+
+        /* BUTTON */
         .btn-body {
             position: relative;
             color: white;
@@ -134,6 +239,12 @@
             transition: background-color 0.3s ease;
         }
 
+        .vline {
+            background-color: #262739;
+            height: 100%;
+            width: 2px;
+        }
+
 
         @media screen and (max-width: 600px) {
             .scroll-container {
@@ -203,16 +314,48 @@
             </div>
         </div>
     </div>
+    <div id="closeBg" class="menu-bg"></div>
+    <div id="asize" class="menu">
+        <div class="menu-wrapping">
+            <div class="menu-head">
+                <div class="menu-close" onclick="menuClose()"></div>
+            </div>
+            <div class="menu-main" style="gap: 80px;">
+                <div class="menu-btn">
+                    <p><input type="checkbox" onclick="soloDuo(1)" id="single"> Single</p>
+                    <p><input type="checkbox" onclick="soloDuo(1)" id="double"> Double</p>
+                </div>
+                <div class="vline"></div>
+                <div class="menu-input">
+                    <input type="text" id="t1">
+                    <input type="text" id="t2">
+                    <input type="text" id="t3">
+                    <input type="text" id="t4">
+                </div>
+            </div>
+        </div>
+    </div>
     <footer style="height: 300px; background-color: rgb(51, 52, 75);">
         
     </footer>
     <script>
+        var co;
+
+        fetch("Proyek/memo-otak.json")
+            .then(response => response.json())
+            .then(data => {
+                co = data
+            })
+            .catch(error => console.error('Error:', error));
+
         document.addEventListener('DOMContentLoaded', function() {
             setFontSize();
             setTransparancy();
+            setSize();
 
             window.addEventListener('resize', setFontSize);
             window.addEventListener('scroll', setTransparancy);
+            window.addEventListener('resize', setSize)
         });
 
         function setFontSize() {
@@ -247,6 +390,45 @@
                 scrollSub.style.backgroundColor = "rgb(51, 52, 75, 0.1)";
             }
         };
+
+        function setSize() {
+            var object = document.getElementById('asize')
+            
+            var lebarLayar = window.innerWidth;
+
+            object.style.width = lebarLayar * 0.8 + 'px';
+            console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
+        };
+
+        function menuClose() {
+            var close = document.getElementById('asize');
+            var closeBg = document.getElementById('closeBg');
+            close.style.display = "none";
+            closeBg.style.display = "none";
+        };
+
+        function soloDuo(condition) {
+            var solo = document.getElementById('single');
+            var duo = document.getElementById('double');
+
+            solo.addEventListener("click", function() {
+                if (solo.checked && condition == 1) {
+                        console.log("solo")
+                        duo.checked = false;
+                        co.conditional = 1;
+                        condition = 0;
+                } 
+            });
+
+            duo.addEventListener("click", function() {
+                if (duo.checked && condition == 1) {
+                        console.log("solo")
+                        solo.checked = false;
+                        co.conditional = 2;
+                        condition = 0;
+                } 
+            });
+        }
     </script>
 </body>
 </html>
