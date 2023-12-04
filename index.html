@@ -51,6 +51,7 @@
             width: 100%;
         }
 
+        /* HEAD & MAIN & FOOT*/
         .menu-head {
             height: 10%;
             background-color: #262739;
@@ -65,6 +66,7 @@
             display: flex;
             height: 90%;
         }
+
 
         .menu-close {
             margin: 10px;
@@ -83,7 +85,7 @@
 
         .menu-close:active {
             height: 25px;
-            width: 10%;
+            width: 30%;
             background-color: rgb(255, 0, 0);
             border: 5px solid #262739;
             border-radius: 10px;
@@ -95,6 +97,10 @@
             gap: 10px;
         }
 
+        
+        
+        
+        /* MENU BUTTON */
         .menu-btn p {
             align-items: center;
             display: flex;
@@ -102,13 +108,6 @@
             font-size: 20px;
         }
 
-        .menu-input {
-            display: flex;
-            flex-direction: column;
-        }
-        
-
-        /* MENU BUTTON */
         input[type="checkbox"] {
             appearance: none;
             width: 40px;
@@ -117,10 +116,27 @@
             border-radius: 8px;
             cursor: pointer;
         }
-
+        
         input[type="checkbox"]:checked {
             background-color: white;
         }
+        
+        /* MENU INPUT */
+        .menu-input {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            border: 3px solid #262739;
+            height: 30px;
+            width: 200px;
+            border-radius: 10px;
+            padding-left: 10px;
+            display: none;
+        }
+
 
         /* SCROLL */
         .scroll-container {
@@ -239,6 +255,10 @@
             transition: background-color 0.3s ease;
         }
 
+        #t1 {
+            margin-top: 20px;
+        }
+
         .vline {
             background-color: #262739;
             height: 100%;
@@ -320,17 +340,22 @@
             <div class="menu-head">
                 <div class="menu-close" onclick="menuClose()"></div>
             </div>
-            <div class="menu-main" style="gap: 80px;">
+            <div class="menu-main" id="bsize" style="gap: 80px;">
                 <div class="menu-btn">
                     <p><input type="checkbox" onclick="soloDuo(1)" id="single"> Single</p>
                     <p><input type="checkbox" onclick="soloDuo(1)" id="double"> Double</p>
+
+                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
+                        <a id="link" style="text-wrap: nowrap;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
+                    </div>
                 </div>
                 <div class="vline"></div>
                 <div class="menu-input">
-                    <input type="text" id="t1">
-                    <input type="text" id="t2">
-                    <input type="text" id="t3">
-                    <input type="text" id="t4">
+                    <h1 id="t0">Select Mode First!</h1>
+                    <input type="text" id="t1" placeholder="Username 1:">
+                    <input type="text" id="t2" placeholder="Username 2:">
+                    <input type="text" id="t3" placeholder="Username 3:">
+                    <input type="text" id="t4" placeholder="Username 4:">
                 </div>
             </div>
         </div>
@@ -340,19 +365,23 @@
     </footer>
     <script>
         var co;
-
-        fetch("Proyek/memo-otak.json")
-            .then(response => response.json())
-            .then(data => {
-                co = data
-            })
-            .catch(error => console.error('Error:', error));
-
+        
+        
         document.addEventListener('DOMContentLoaded', function() {
-            setFontSize();
-            setTransparancy();
-            setSize();
 
+            fetch("Proyek/memo-otak.json")
+                .then(response => response.json())
+                .then(data => {
+                    co = data
+                    setFontSize();
+                    setTransparancy();
+                    setSize();
+                    soloDuo();
+                })
+                .catch(error => console.error('Error:', error));
+                
+
+            
             window.addEventListener('resize', setFontSize);
             window.addEventListener('scroll', setTransparancy);
             window.addEventListener('resize', setSize)
@@ -361,6 +390,8 @@
         function setFontSize() {
             var adapt = document.getElementById('adapt');
             var adaptSub = document.getElementById('adapt-sub');
+            var t0 = document.getElementById('t0');
+            var link = document.getElementById('link')
 
             var fzapt = parseFloat(window.getComputedStyle(adapt).getPropertyValue("font-size"));
             var fzaptSub = parseFloat(window.getComputedStyle(adaptSub).getPropertyValue("font-size"));
@@ -373,6 +404,10 @@
             } else {
                 adaptSub.style.fontSize = 16 + "px";
             }
+
+            t0.style.fontSize = (lebarLayar * 0.03) + lebarLayar/30 + 'px'
+            link.style.fontSize = lebarLayar* 0.2 + "%";
+
             console.log('fzapt:', fzapt);
             console.log('fzaptSub:', fzaptSub);
         }
@@ -392,12 +427,17 @@
         };
 
         function setSize() {
-            var object = document.getElementById('asize')
-            
             var lebarLayar = window.innerWidth;
-
+            
+            var object = document.getElementById('asize')
             object.style.width = lebarLayar * 0.8 + 'px';
+
+            var object1 = document.getElementById('bsize')
+            object1.style.gap = lebarLayar * 0.05 + 'px';
+            
+
             console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
+            console.log(parseFloat(window.getComputedStyle(object1).getPropertyValue("gap")));
         };
 
         function menuClose() {
@@ -407,27 +447,53 @@
             closeBg.style.display = "none";
         };
 
-        function soloDuo(condition) {
+        function soloDuo() {
             var solo = document.getElementById('single');
             var duo = document.getElementById('double');
 
+            var t0 = document.getElementById("t0")
+            var t1 = document.getElementById("t1")
+            var t2 = document.getElementById("t2")
+            var t3 = document.getElementById("t3")
+            var t4 = document.getElementById("t4")
+
+
             solo.addEventListener("click", function() {
-                if (solo.checked && condition == 1) {
+                if (solo.checked) {
                         console.log("solo")
                         duo.checked = false;
                         co.conditional = 1;
-                        condition = 0;
-                } 
+                        t0.style.display = "none";
+                        t1.style.display = "flex";
+                        t2.style.display = "flex";
+                        t3.style.display = "none";
+                        t4.style.display = "none";
+                    } 
             });
 
             duo.addEventListener("click", function() {
-                if (duo.checked && condition == 1) {
+                if (duo.checked) {
                         console.log("solo")
                         solo.checked = false;
                         co.conditional = 2;
-                        condition = 0;
+                        t0.style.display = "none";
+                        t1.style.display = "flex";
+                        t2.style.display = "flex";
+                        t3.style.display = "flex";
+                        t4.style.display = "flex";
                 } 
             });
+
+            if (solo.checked == false && duo.checked == false) {
+                co.conditional = 0;
+                t0.style.display = "flex";
+                t1.style.display = "none";
+                t2.style.display = "none";
+                t3.style.display = "none";
+                t4.style.display = "none";
+            }
+
+            console.log(co.conditional)
         }
     </script>
 </body>
