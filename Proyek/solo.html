@@ -19,8 +19,8 @@
         <div class="player">
             <table id="dataContent" class="score" style="margin-bottom: -40%;">
                 <tr id="baris">
-                    <td class="data" id="p1s">player1</td>
-                    <td class="data" id="p2s">player2</td>
+                    <td class="data" id="p1c">player1</td>
+                    <td class="data" id="p2c">player2</td>
                 </tr>
             </table>
         </div>
@@ -43,23 +43,23 @@
         </div>
     </div>
     <script>
-        var player = [];
-        var index;
-        for (i = 1; i <= 2; i++) {
-            player.push(prompt("Masukkan Player " + i + ":"));
-            for (l = 1; l <= 3; l++) {
-                if (l == 1) {
-                    index = "s"
-                } else if (l == 2) {
-                    index = "c"
-                } else {
-                    index = "b"
-                }
-                console.log("p" + i + index)
+        // var player = [];
+        // var index;
+        // for (i = 1; i <= 2; i++) {
+        //     player.push(prompt("Masukkan Player " + i + ":"));
+        //     for (l = 1; l <= 3; l++) {
+        //         if (l == 1) {
+        //             index = "s"
+        //         } else if (l == 2) {
+        //             index = "c"
+        //         } else {
+        //             index = "b"
+        //         }
+        //         console.log("p" + i + index)
 
-                document.getElementById("p" + i + index).innerHTML = player[i-1]
-            };
-        };
+        //         document.getElementById("p" + i + index).innerHTML = player[i-1]
+        //     };
+        // };
     </script>
     <script src="otak-experimental.js"></script>
 </body>

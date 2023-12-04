@@ -26,7 +26,7 @@
             height: 500px;
             border-radius: 10px;
             position: fixed;
-            display: flex;
+            display: none;
             background: #33344b;
             align-items: center;
             top: 50%;
@@ -35,6 +35,7 @@
             z-index: 11;
             box-shadow: 0 0 10px black;
             color: white;
+            
         }
 
         .menu-bg {
@@ -44,6 +45,7 @@
             position: fixed;
             background-color: rgba(211, 211, 211, 0.5);
             z-index: 10;
+            display: none;
         }
 
         .menu-wrapping {
@@ -91,16 +93,17 @@
             border-radius: 10px;
         }
 
+        
+        
+        
+        
+        /* MENU BUTTON */
         .menu-btn {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        
-        
-        
-        /* MENU BUTTON */
         .menu-btn p {
             align-items: center;
             display: flex;
@@ -179,6 +182,7 @@
             transition: none;
             border-radius: 8px;
             padding: 5px;
+            cursor: pointer;
         }
         .btn-body:hover{
             color: white;
@@ -197,6 +201,36 @@
             color: #35426C;
 
         }
+        .btn-body-s {
+            position: relative;
+            color: white;
+            background-color: #35426C;
+            box-shadow: 5px 5px #262739;
+            font-weight: 500;
+            border: 5px solid #35426C;
+            transition: none;
+            border-radius: 8px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .btn-body-s:hover{
+            color: white;
+            border-color: #35426C;
+            background-color: #35426C;   
+        }
+        .btn-body-s:active {
+            box-shadow: none;
+            color: #35426C;
+            border-color: #35426C;
+            background-color: #fff;   
+            top: 5px;
+            left: 5px;
+        }
+        .btn-body-s:active a {
+            color: #35426C;
+
+        }
+
         .container-fluid {
             margin: 0;
             padding: 0;
@@ -293,11 +327,8 @@
                 <h1 id="adapt" style="font-weight: 1000; margin: 0; margin-top: var(--height);">CREATE YOUR BADMINTON SCOREBOARD</h1>
                 <p id="adapt-sub" style="font-weight: 100;">By using a score papan you can make referee notes with interconnected score displays and make it easier for the referee to calculate the score</p>
                 <div style="display: flex; gap: 5px;">
-                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
-                        <a href="Proyek/solo.html"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Single</a>
-                    </div>
-                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
-                        <a href="Proyek/duo.html"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Double</a>
+                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;" onclick="openMenu()">
+                        <p style="margin: 0;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create your Scoreboard</p>
                     </div>
                 </div>
             </div>
@@ -345,7 +376,7 @@
                     <p><input type="checkbox" onclick="soloDuo(1)" id="single"> Single</p>
                     <p><input type="checkbox" onclick="soloDuo(1)" id="double"> Double</p>
 
-                    <div class="btn btn-body flex" style="width: fit-content; padding: 5px;">
+                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px;" onclick="getValue()">
                         <a id="link" style="text-wrap: nowrap;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
                     </div>
                 </div>
@@ -406,7 +437,12 @@
             }
 
             t0.style.fontSize = (lebarLayar * 0.03) + lebarLayar/30 + 'px'
-            link.style.fontSize = lebarLayar* 0.2 + "%";
+
+            if (lebarLayar < 700) {
+                link.style.fontSize = lebarLayar* 0.2 + "%";
+            } else {
+                link.style.fontSize = 16 + "px";
+            }
 
             console.log('fzapt:', fzapt);
             console.log('fzaptSub:', fzaptSub);
@@ -425,20 +461,27 @@
                 scrollSub.style.backgroundColor = "rgb(51, 52, 75, 0.1)";
             }
         };
-
+        
         function setSize() {
             var lebarLayar = window.innerWidth;
             
             var object = document.getElementById('asize')
             object.style.width = lebarLayar * 0.8 + 'px';
-
+            
             var object1 = document.getElementById('bsize')
             object1.style.gap = lebarLayar * 0.05 + 'px';
             
-
+            
             console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
             console.log(parseFloat(window.getComputedStyle(object1).getPropertyValue("gap")));
         };
+
+        function openMenu() {
+            var menu = document.getElementById('asize');
+            var menuBg = document.getElementById('closeBg');
+            menu.style.display = 'flex';
+            menuBg.style.display = 'flex';
+        }
 
         function menuClose() {
             var close = document.getElementById('asize');
@@ -457,12 +500,17 @@
             var t3 = document.getElementById("t3")
             var t4 = document.getElementById("t4")
 
+            var link = document.getElementById('link')
+
 
             solo.addEventListener("click", function() {
                 if (solo.checked) {
                         console.log("solo")
                         duo.checked = false;
                         co.conditional = 1;
+
+                        link.href = 'Proyek/solo.html'
+
                         t0.style.display = "none";
                         t1.style.display = "flex";
                         t2.style.display = "flex";
@@ -473,9 +521,12 @@
 
             duo.addEventListener("click", function() {
                 if (duo.checked) {
-                        console.log("solo")
+                        console.log("duo")
                         solo.checked = false;
                         co.conditional = 2;
+
+                        link.href = 'Proyek/duo.html'
+    
                         t0.style.display = "none";
                         t1.style.display = "flex";
                         t2.style.display = "flex";
@@ -495,6 +546,26 @@
 
             console.log(co.conditional)
         }
+
+        function getValue() {
+            var t1 = document.getElementById("t1").value;
+            var t2 = document.getElementById("t2").value;
+            var t3 = document.getElementById("t3").value;
+            var t4 = document.getElementById("t4").value;
+
+            localStorage.setItem('con', co.conditional)
+
+            if (co.conditional == 1) {
+                localStorage.setItem('player1', t1)
+                localStorage.setItem('player2', t2)
+            } else if (co.conditional == 2) {
+                localStorage.setItem('player1', t1)
+                localStorage.setItem('player2', t2)
+                localStorage.setItem('player3', t3)
+                localStorage.setItem('player4', t4)
+            }
+        }
+
     </script>
 </body>
 </html>

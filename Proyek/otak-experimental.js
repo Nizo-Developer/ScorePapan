@@ -7,6 +7,25 @@ fetch("memo-otak.json")
     .then(response => response.json())
     .then(data => {
         co = data
+        
+        var player = [];
+        var index;
+        var con = localStorage.getItem('con')
+
+        for (i = 1; i <= con*2; i++) {
+            player.push(localStorage.getItem('player' + i))
+            for (l = 1; l <= 3; l++) {
+                if (l == 1) {
+                    index = "s"
+                } else if (l == 2) {
+                    index = "c"
+                } else {
+                    index = "b"
+                }
+                console.log("p" + i + index)
+                document.getElementById("p" + i + index).innerHTML = player[i-1]
+            }
+        }
     })
     .catch(error => console.error('Error:', error));
 
