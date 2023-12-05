@@ -11,6 +11,7 @@
             --height: 50px;
             --t2-height: 350px;
             --t2-width: 250px;
+            --maintance-menu: flex;
         }
         * {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -26,7 +27,7 @@
             height: 500px;
             border-radius: 10px;
             position: fixed;
-            display: none;
+            display: var(--maintance-menu);
             background: #33344b;
             align-items: center;
             top: 50%;
@@ -45,7 +46,7 @@
             position: fixed;
             background-color: rgba(211, 211, 211, 0.5);
             z-index: 10;
-            display: none;
+            display: var(--maintance-menu);
         }
 
         .menu-wrapping {
@@ -60,13 +61,15 @@
             border-radius: 10px 10px 0 0;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: space-between;
         }
 
         .menu-main {
             margin: 0 20px;
             display: flex;
             height: 90%;
+            align-items: center;
+            flex-direction: column;
         }
 
 
@@ -92,10 +95,6 @@
             border: 5px solid #262739;
             border-radius: 10px;
         }
-
-        
-        
-        
         
         /* MENU BUTTON */
         .menu-btn {
@@ -113,8 +112,8 @@
 
         input[type="checkbox"] {
             appearance: none;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border: 5px solid #35426C;
             border-radius: 8px;
             cursor: pointer;
@@ -122,6 +121,11 @@
         
         input[type="checkbox"]:checked {
             background-color: white;
+        }
+
+        .solo-duo {
+            display: flex;
+            align-items: center;
         }
         
         /* MENU INPUT */
@@ -289,6 +293,10 @@
             transition: background-color 0.3s ease;
         }
 
+        #scrollSub {
+            transition: background-color 0.3 ease;
+        }
+
         #t1 {
             margin-top: 20px;
         }
@@ -297,6 +305,12 @@
             background-color: #262739;
             height: 100%;
             width: 2px;
+        }
+
+        .xline {
+            background-color: #262739;
+            height: 2px;
+            width: 100%;
         }
 
 
@@ -315,7 +329,7 @@
     <div class="container-fluid" style="position: fixed; z-index: 10;">
         <div class="m-0" id="scroll" style="height: var(--height); background-color: #35426C; width: 100%; position: fixed; box-shadow: 0 15px 15px 10px rgb(0, 0, 0, 0.5)">
             <div class="head-right" style="color: #fff; font-weight: 800;">
-            <div id="scrollSub" style="background-color: #33344b; width: fit-content; height: var(--height); position: fixed; z-index: 9; padding-right: 2vw;"><i class="fa-solid fa-chess-board" style="margin-left: 2vh; margin-right: 1vh;"></i>Score Papan</div>
+                <div id="scrollSub" style="background-color: #33344b; width: fit-content; height: var(--height); position: fixed; z-index: 9; padding-right: 2vw;"><i class="fa-solid fa-chess-board" style="margin-left: 2vh; margin-right: 1vh;"></i>Score Papan</div>
             ㅤ
             </div>
         </div>
@@ -369,24 +383,23 @@
     <div id="asize" class="menu">
         <div class="menu-wrapping">
             <div class="menu-head">
+                <div class="solo-duo">
+                    <input type="checkbox" onclick="soloDuo()" id="singDoub" style="margin: 0 10px;"><p id="solo-duo"> Single</p>
+                </div>
                 <div class="menu-close" onclick="menuClose()"></div>
             </div>
             <div class="menu-main" id="bsize" style="gap: 80px;">
-                <div class="menu-btn">
-                    <p><input type="checkbox" onclick="soloDuo(1)" id="single"> Single</p>
-                    <p><input type="checkbox" onclick="soloDuo(1)" id="double"> Double</p>
-
-                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px;" onclick="getValue()">
-                        <a id="link" style="text-wrap: nowrap;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
-                    </div>
-                </div>
-                <div class="vline"></div>
                 <div class="menu-input">
-                    <h1 id="t0">Select Mode First!</h1>
                     <input type="text" id="t1" placeholder="Username 1:">
                     <input type="text" id="t2" placeholder="Username 2:">
                     <input type="text" id="t3" placeholder="Username 3:">
                     <input type="text" id="t4" placeholder="Username 4:">
+                </div>
+                <div class="xline"></div>
+                <div class="menu-btn">
+                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px;" onclick="getValue()">
+                        <a id="link" style="text-wrap: nowrap;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -421,7 +434,6 @@
         function setFontSize() {
             var adapt = document.getElementById('adapt');
             var adaptSub = document.getElementById('adapt-sub');
-            var t0 = document.getElementById('t0');
             var link = document.getElementById('link')
 
             var fzapt = parseFloat(window.getComputedStyle(adapt).getPropertyValue("font-size"));
@@ -439,8 +451,6 @@
             } else {
                 adaptSub.style.fontSize = 16 + "px";
             }
-
-            t0.style.fontSize = (lebarLayar * 0.03) + lebarLayar/30 + 'px'
 
             if (lebarLayar < 700) {
                 link.style.fontSize = lebarLayar* 0.2 + "%";
@@ -470,7 +480,7 @@
             var lebarLayar = window.innerWidth;
             
             var object = document.getElementById('asize')
-            object.style.width = lebarLayar * 0.8 + 'px';
+            object.style.width = lebarLayar * 0.3 + 'px';
             
             var object1 = document.getElementById('bsize')
             object1.style.gap = lebarLayar * 0.05 + 'px';
@@ -495,10 +505,9 @@
         };
 
         function soloDuo() {
-            var solo = document.getElementById('single');
-            var duo = document.getElementById('double');
+            var checker = document.getElementById('singDoub');
+            var strCheck = document.getElementById('solo-duo');
 
-            var t0 = document.getElementById("t0")
             var t1 = document.getElementById("t1")
             var t2 = document.getElementById("t2")
             var t3 = document.getElementById("t3")
@@ -507,46 +516,30 @@
             var link = document.getElementById('link')
 
 
-            solo.addEventListener("click", function() {
-                if (solo.checked) {
-                        console.log("solo")
-                        duo.checked = false;
-                        co.conditional = 1;
 
-                        link.href = 'Proyek/solo.html'
+                if (checker.checked) {
+                    console.log("duo")
+                    co.conditional = 2;
+                    strCheck.innerHTML = 'Double'
 
-                        t0.style.display = "none";
-                        t1.style.display = "flex";
-                        t2.style.display = "flex";
-                        t3.style.display = "none";
-                        t4.style.display = "none";
-                    } 
-            });
+                    link.href = 'Proyek/duo.html'
 
-            duo.addEventListener("click", function() {
-                if (duo.checked) {
-                        console.log("duo")
-                        solo.checked = false;
-                        co.conditional = 2;
-
-                        link.href = 'Proyek/duo.html'
+                    t1.style.display = "flex";
+                    t2.style.display = "flex";
+                    t3.style.display = "flex";
+                    t4.style.display = "flex";
+                } else {
+                    console.log("solo")
+                    co.conditional = 1;
+                    strCheck.innerHTML = 'Single'
     
-                        t0.style.display = "none";
-                        t1.style.display = "flex";
-                        t2.style.display = "flex";
-                        t3.style.display = "flex";
-                        t4.style.display = "flex";
-                } 
-            });
-
-            if (solo.checked == false && duo.checked == false) {
-                co.conditional = 0;
-                t0.style.display = "flex";
-                t1.style.display = "none";
-                t2.style.display = "none";
-                t3.style.display = "none";
-                t4.style.display = "none";
-            }
+                    link.href = 'Proyek/solo.html';
+    
+                    t1.style.display = "flex";
+                    t2.style.display = "flex";
+                    t3.style.display = "none";
+                    t4.style.display = "none";
+                }
 
             console.log(co.conditional)
         }
