@@ -132,17 +132,27 @@
         .menu-input {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 20px;
+            height: 80%;
         }
 
         input[type="text"] {
-            border: 3px solid #262739;
+            background-color: transparent;
+            border: 1px solid white;
             height: 30px;
             width: 200px;
-            border-radius: 10px;
+            border-radius: 5px;
             padding-left: 10px;
+            margin: 1.4px 0;
             display: none;
+            color: white;
         }
+
+        input[type="text"]:hover {
+            border: 1.5px solid #fff;
+            margin: 0 0;
+        }        
 
 
         /* SCROLL */
@@ -388,7 +398,7 @@
                 </div>
                 <div class="menu-close" onclick="menuClose()"></div>
             </div>
-            <div class="menu-main" id="bsize" style="gap: 80px;">
+            <div class="menu-main" id="bsize" style="gap: 10px;">
                 <div class="menu-input">
                     <input type="text" id="t1" placeholder="Username 1:">
                     <input type="text" id="t2" placeholder="Username 2:">
@@ -452,11 +462,11 @@
                 adaptSub.style.fontSize = 16 + "px";
             }
 
-            if (lebarLayar < 700) {
-                link.style.fontSize = lebarLayar* 0.2 + "%";
-            } else {
-                link.style.fontSize = 16 + "px";
-            }
+            // if (lebarLayar < 700) {
+            //     link.style.fontSize = lebarLayar* 0.2 + "%";
+            // } else {
+            //     link.style.fontSize = 16 + "px";
+            // }
 
             console.log('fzapt:', fzapt);
             console.log('fzaptSub:', fzaptSub);
@@ -477,17 +487,21 @@
         };
         
         function setSize() {
-            var lebarLayar = window.innerWidth;
             
             var object = document.getElementById('asize')
-            object.style.width = lebarLayar * 0.3 + 'px';
-            
-            var object1 = document.getElementById('bsize')
-            object1.style.gap = lebarLayar * 0.05 + 'px';
+            var wobject = parseFloat(window.getComputedStyle(object).getPropertyValue("width"));
+
+            var lebarLayar = window.innerWidth;
+
+            if ((lebarLayar * 0.3) >= 300) {
+                object.style.width = lebarLayar * 0.3 + 'px';
+            } else {
+                object.style.width = 300 + 'px'
+            }
             
             
             console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
-            console.log(parseFloat(window.getComputedStyle(object1).getPropertyValue("gap")));
+
         };
 
         function openMenu() {
