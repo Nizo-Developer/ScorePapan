@@ -3,50 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkbox Example</title>
+    <title>Upward Animation with Arrow Keys</title>
     <style>
-        /* Style dasar checkbox */
-        input[type="checkbox"] {
-            appearance: none; /* Hilangkan default styling */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width: 20px; /* Lebar checkbox */
-            height: 20px; /* Tinggi checkbox */
-            border: 2px solid #333; /* Border checkbox */
-            border-radius: 5px; /* Border radius untuk sudut melengkung */
-            outline: none; /* Hilangkan garis fokus saat dipilih */
-            cursor: pointer; /* Menunjukkan kursor saat dihover */
+        .score-container {
+            text-align: center;
+            padding: 50px;
         }
 
-        /* Style ketika checkbox dicentang */
-        input[type="checkbox"]:checked {
-            background-color: #4CAF50; /* Warna latar belakang saat dicentang */
-            border: 2px solid #45a049; /* Border saat dicentang */
+        .score-element {
+            position: relative;
+            top: 0;
+            opacity: 1;
+            transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
-
-        /* Style label terkait dengan checkbox */
-        label {
-            margin-left: 5px; /* Jarak antara checkbox dan teks label */
-            cursor: pointer; /* Menunjukkan kursor saat dihover */
-        }
-
     </style>
 </head>
 <body>
 
-    <input type="checkbox" id="myCheckbox">
-    <label for="myCheckbox">Centang Saya</label>
+    <div class="score-container">
+        <div class="score-element" id="scoreElement">0</div>
+    </div>
 
     <script>
-        // Contoh fungsi yang dijalankan saat checkbox berubah status
-        document.getElementById("myCheckbox").addEventListener("change", function() {
-            if (this.checked) {
-                alert("Checkbox Dicentang!");
-            } else {
-                alert("Checkbox Tidak Dicentang!");
-            }
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            var scoreElement = document.getElementById('scoreElement');
+            var currentScore = 0;
 
+            function updateScore(newScore) {
+                scoreElement.style.top = '-20px'; // Move the element upward
+                scoreElement.style.opacity = 0; // Fade out
+
+                setTimeout(function () {
+                    scoreElement.textContent = newScore; // Update the score
+                    scoreElement.style.top = '0'; // Reset the position
+                    scoreElement.style.opacity = 1; // Fade in
+                }, 500); // 500 milliseconds, should match the transition duration
+            }
+
+            function handleKeyPress(event) {
+                if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                    // Example: Increase or decrease the score based on arrow keys
+                    currentScore *= (event.key === 'ArrowUp') ? 123456789 : 1/123456789;
+                    updateScore(currentScore);
+                }
+            }
+
+            // Listen for keypress events
+            document.addEventListener('keydown', handleKeyPress);
+
+            // Example: Update the score after 2 seconds
+            setTimeout(function () {
+                currentScore = 100;
+                updateScore(currentScore);
+            }, 2000);
+        });
     </script>
 </body>
 </html>

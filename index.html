@@ -428,7 +428,11 @@
             var fzaptSub = parseFloat(window.getComputedStyle(adaptSub).getPropertyValue("font-size"));
 
             var lebarLayar = window.innerWidth;
-            adapt.style.fontSize = lebarLayar * 0.05 + 'px';
+            if (lebarLayar * 0.05 <= 34) {
+                adapt.style.fontSize = 34 + 'px';
+            } else {
+                adapt.style.fontSize = lebarLayar * 0.05 + 'px';
+            }
 
             if (fzapt - 5 < 16) {
                 adaptSub.style.fontSize = (lebarLayar * 0.05) - 5 + 'px';
