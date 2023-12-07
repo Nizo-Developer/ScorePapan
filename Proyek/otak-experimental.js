@@ -26,6 +26,8 @@ fetch("memo-otak.json")
                 document.getElementById("p" + i + index).innerHTML = player[i-1]
             }
         }
+
+        window.open('score-display.html', '_blank');
     })
     .catch(error => console.error('Error:', error));
 

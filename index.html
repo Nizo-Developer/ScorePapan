@@ -427,9 +427,9 @@
             </div>
             <div class="menu-foot">
                 <div class="menu-btn">
-                    <a id="link"></a><div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px; text-wrap: nowrap;" onclick="getValue()">
-                        <i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard
-                    </div></a>
+                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px; text-wrap: nowrap;" onclick="getValue()">
+                        <a onclick="getValue()" id="link"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -541,10 +541,10 @@
             close.style.display = "none";
             closeBg.style.display = "none";
 
-            localStorage.setItem('player1', '')
-            localStorage.setItem('player2', '')
-            localStorage.setItem('player3', '')
-            localStorage.setItem('player4', '')
+            localStorage.removeItem('player1')
+            localStorage.removeItem('player2')
+            localStorage.removeItem('player3')
+            localStorage.removeItem('player4')
         };
 
         function soloDuo() {
@@ -565,7 +565,7 @@
                     co.conditional = 2;
                     strCheck.innerHTML = 'Double'
 
-                    link.href = 'Proyek/duo.html'
+                    // link.href = 'Proyek/duo.html'
                     t5.style.display = 'none';
 
                     t1.style.display = "flex";
@@ -577,7 +577,7 @@
                     co.conditional = 1;
                     strCheck.innerHTML = 'Single'
     
-                    link.href = 'Proyek/solo.html';
+                    // link.href = 'Proyek/solo.html';
                     t5.style.display = 'none';
     
                     t1.style.display = "flex";
@@ -585,8 +585,8 @@
                     t3.style.display = "none";
                     t4.style.display = "none";
 
-                    localStorage.setItem('player3', '')
-                    localStorage.setItem('player4', '')
+                    localStorage.removeItem('player3')
+                    localStorage.removeItem('player4')
                 }
 
             console.log(co.conditional)
@@ -622,23 +622,19 @@
                 t5.style.display = 'none';
                 
                 if (co.conditional == 1 ) {
-                    link.href = 'Proyek/solo.html';
+                    // link.href = 'Proyek/solo.html';
                     localStorage.setItem('player1', t1)
                     localStorage.setItem('player2', t2)
-                    setTimeout(function () {
-                        window.open('Proyek/score-display.html', '_blank'); 
-                    }, 1000);
+                    window.location.href = 'Proyek/solo.html';
                 } 
                 
                 if (co.conditional == 2 && t1 && t2 && t3 && t4) {
-                    link.href = 'Proyek/duo.html';
+                    // link.href = 'Proyek/duo.html';
                     localStorage.setItem('player1', t1)
                     localStorage.setItem('player2', t2)
                     localStorage.setItem('player3', t3)
                     localStorage.setItem('player4', t4)
-                    setTimeout(function () {
-                        window.open('Proyek/score-display.html', '_blank'); 
-                    }, 1000);
+                    window.location.href = 'Proyek/duo.html'; 
                 }
             } else {
                 link.href = "#"
@@ -654,7 +650,6 @@
                 t5.style.display = 'flex';
             }
         }
-
     </script>
 </body>
 </html>
