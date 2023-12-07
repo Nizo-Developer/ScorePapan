@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>Score Papan</title>
+    <title>ScorePapan</title>
     <style>
         :root {
             --height: 50px;
@@ -24,11 +24,11 @@
         /* MENU */
         .menu {
             width: 500px;
-            height: 500px;
+            height: fit-content;
             border-radius: 10px;
             position: fixed;
             display: var(--maintance-menu);
-            background: #33344b;
+            background-color: #33344b;
             align-items: center;
             top: 50%;
             left: 50%;
@@ -36,7 +36,7 @@
             z-index: 11;
             box-shadow: 0 0 10px black;
             color: white;
-            
+            transition: 0.5s;
         }
 
         .menu-bg {
@@ -56,7 +56,7 @@
 
         /* HEAD & MAIN & FOOT*/
         .menu-head {
-            height: 10%;
+            height: 15%;
             background-color: #262739;
             border-radius: 10px 10px 0 0;
             display: flex;
@@ -65,14 +65,25 @@
         }
 
         .menu-main {
-            margin: 0 20px;
+            margin: 20px 20px;
             display: flex;
-            height: 90%;
+            height: fit-content;
             align-items: center;
             flex-direction: column;
+            transition: 0.3s;
         }
 
+        .menu-foot {
+            background-color: #262739;
+            height: 80px;
+            border-radius: 0 0 10px 10px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            transition: 0.3s;
+        }
 
+        /* MENU CLOSE BUTTON */
         .menu-close {
             margin: 10px;
             height: 20px;
@@ -99,7 +110,7 @@
         /* MENU BUTTON */
         .menu-btn {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             gap: 10px;
         }
 
@@ -134,7 +145,10 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            height: 80%;
+            height: 70%;
+            margin: 15px 0;
+            padding: 0 15px;
+            border-radius: 5px;
         }
 
         input[type="text"] {
@@ -147,10 +161,12 @@
             margin: 1.4px 0;
             display: none;
             color: white;
+            appearance: none;
+            border-color: white;
         }
 
         input[type="text"]:hover {
-            border: 1.5px solid #fff;
+            border: 1.5px solid white;
             margin: 0 0;
         }        
 
@@ -194,7 +210,7 @@
             font-weight: 500;
             border: 5px solid #35426C;
             transition: none;
-            border-radius: 8px;
+            border-radius: 5px;
             padding: 5px;
             cursor: pointer;
         }
@@ -219,12 +235,12 @@
             position: relative;
             color: white;
             background-color: #35426C;
-            box-shadow: 5px 5px #262739;
+            box-shadow: 0 5px black;
             font-weight: 500;
             border: 5px solid #35426C;
             transition: none;
             border-radius: 8px;
-            padding: 5px;
+            padding: 5px 20px;
             cursor: pointer;
         }
         .btn-body-s:hover{
@@ -238,7 +254,6 @@
             border-color: #35426C;
             background-color: #fff;   
             top: 5px;
-            left: 5px;
         }
         .btn-body-s:active a {
             color: #35426C;
@@ -259,7 +274,7 @@
             background-color: #35426C;
             height: var(--t2-height);
             width: var(--t2-width);
-            border-radius: 8px;
+            border-radius: 5px;
             margin-top: 40px;
             box-shadow: 16px 15px #33344b;
             transition: none;
@@ -307,8 +322,11 @@
             transition: background-color 0.3 ease;
         }
 
-        #t1 {
-            margin-top: 20px;
+        #adapt, #adaptSub {
+            transition: 0.5s;
+        }
+        #t5 {
+            display: none;
         }
 
         .vline {
@@ -335,7 +353,7 @@
         }
     </style>
 </head>
-<body>
+<body id="body">
     <div class="container-fluid" style="position: fixed; z-index: 10;">
         <div class="m-0" id="scroll" style="height: var(--height); background-color: #35426C; width: 100%; position: fixed; box-shadow: 0 15px 15px 10px rgb(0, 0, 0, 0.5)">
             <div class="head-right" style="color: #fff; font-weight: 800;">
@@ -404,12 +422,14 @@
                     <input type="text" id="t2" placeholder="Username 2:">
                     <input type="text" id="t3" placeholder="Username 3:">
                     <input type="text" id="t4" placeholder="Username 4:">
+                    <p id="t5" style="margin: 0; font-weight: 800; letter-spacing: 1px;">ENTER USERNAME FIRST!</p>
                 </div>
-                <div class="xline"></div>
+            </div>
+            <div class="menu-foot">
                 <div class="menu-btn">
-                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px;" onclick="getValue()">
-                        <a id="link" style="text-wrap: nowrap;"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard</a>
-                    </div>
+                    <a id="link"></a><div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px; text-wrap: nowrap;" onclick="getValue()">
+                        <i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create Scoreboard
+                    </div></a>
                 </div>
             </div>
         </div>
@@ -501,12 +521,14 @@
             
             
             console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
-
+            console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("height")));
         };
 
         function openMenu() {
             var menu = document.getElementById('asize');
             var menuBg = document.getElementById('closeBg');
+            var body = document.getElementById('body')
+            body.style.overflowY = 'hidden';
             menu.style.display = 'flex';
             menuBg.style.display = 'flex';
         }
@@ -514,21 +536,28 @@
         function menuClose() {
             var close = document.getElementById('asize');
             var closeBg = document.getElementById('closeBg');
+            var body = document.getElementById('body')
+            body.style.overflowY = 'visible';
             close.style.display = "none";
             closeBg.style.display = "none";
+
+            localStorage.setItem('player1', '')
+            localStorage.setItem('player2', '')
+            localStorage.setItem('player3', '')
+            localStorage.setItem('player4', '')
         };
 
         function soloDuo() {
             var checker = document.getElementById('singDoub');
             var strCheck = document.getElementById('solo-duo');
 
-            var t1 = document.getElementById("t1")
-            var t2 = document.getElementById("t2")
-            var t3 = document.getElementById("t3")
-            var t4 = document.getElementById("t4")
+            var t1 = document.getElementById("t1");
+            var t2 = document.getElementById("t2");
+            var t3 = document.getElementById("t3");
+            var t4 = document.getElementById("t4");
+            var t5 = document.getElementById("t5");
 
-            var link = document.getElementById('link')
-
+            var link = document.getElementById('link');
 
 
                 if (checker.checked) {
@@ -537,6 +566,7 @@
                     strCheck.innerHTML = 'Double'
 
                     link.href = 'Proyek/duo.html'
+                    t5.style.display = 'none';
 
                     t1.style.display = "flex";
                     t2.style.display = "flex";
@@ -548,11 +578,15 @@
                     strCheck.innerHTML = 'Single'
     
                     link.href = 'Proyek/solo.html';
+                    t5.style.display = 'none';
     
                     t1.style.display = "flex";
                     t2.style.display = "flex";
                     t3.style.display = "none";
                     t4.style.display = "none";
+
+                    localStorage.setItem('player3', '')
+                    localStorage.setItem('player4', '')
                 }
 
             console.log(co.conditional)
@@ -564,16 +598,60 @@
             var t3 = document.getElementById("t3").value;
             var t4 = document.getElementById("t4").value;
 
+            var t1b = document.getElementById("t1");
+            var t2b = document.getElementById("t2");
+            var t3b = document.getElementById("t3");
+            var t4b = document.getElementById("t4");
+            var t5 = document.getElementById("t5");
+
+            var link = document.getElementById('link');
+            var tv = [t1, t2, t3, t4];
+            var t = [t1b, t2b, t3b, t4b];
+            var con = co.conditional;
+
             localStorage.setItem('con', co.conditional)
 
-            if (co.conditional == 1) {
-                localStorage.setItem('player1', t1)
-                localStorage.setItem('player2', t2)
-            } else if (co.conditional == 2) {
-                localStorage.setItem('player1', t1)
-                localStorage.setItem('player2', t2)
-                localStorage.setItem('player3', t3)
-                localStorage.setItem('player4', t4)
+            if (t1 && t2) {
+
+                for (i = 1; i <= 4; i++) {
+                    if (t[i] == '') {
+                        t[i].style.borderColor = 'white'
+                    }
+                }
+
+                t5.style.display = 'none';
+                
+                if (co.conditional == 1 ) {
+                    link.href = 'Proyek/solo.html';
+                    localStorage.setItem('player1', t1)
+                    localStorage.setItem('player2', t2)
+                    setTimeout(function () {
+                        window.open('Proyek/score-display.html', '_blank'); 
+                    }, 1000);
+                } 
+                
+                if (co.conditional == 2 && t1 && t2 && t3 && t4) {
+                    link.href = 'Proyek/duo.html';
+                    localStorage.setItem('player1', t1)
+                    localStorage.setItem('player2', t2)
+                    localStorage.setItem('player3', t3)
+                    localStorage.setItem('player4', t4)
+                    setTimeout(function () {
+                        window.open('Proyek/score-display.html', '_blank'); 
+                    }, 1000);
+                }
+            } else {
+                link.href = "#"
+                for (i = 0; i <= (con*2)-1; i++) {
+                    if (tv[i]) {
+                        t[i].style.borderColor = 'white';
+                        console.log('white');
+                    } else {
+                        t[i].style.borderColor = 'rgb(255, 0, 0, 1)';
+                        console.log('red');
+                    }
+                }
+                t5.style.display = 'flex';
             }
         }
 

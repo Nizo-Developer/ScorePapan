@@ -132,6 +132,7 @@ table, tr {
 
 table {
     height: fit-content;
+    border-spacing: 4px;
 }
 
 a {

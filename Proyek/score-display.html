@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScorePapan Display</title>
+    <style>
+        body {
+            background-color: rgb(125, 125, 219);
+            margin: 0;
+        }
+
+        /* BOX */
+        .box {
+            flex: 1;
+            width: 200px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .boxSub {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+        .boxWrap {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex {
+            display: flex;
+        }
+        .flex-v {
+            display: flex;
+            flex-direction: column;
+        }
+        .top-wrapper {
+            justify-content: center;
+            height: 50%;
+            width: 100%;
+            background-color: rgb(18, 18, 89);
+        }
+        .bot-wrapper {
+            justify-content: center;
+            height: 50%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-wrapper flex" id="top">
+        <div class="box flex-v" id="team1">
+            <div class="boxSub"></div>
+        </div>
+        <div class="box flex-v" id="team2">
+            <div class="boxSub"></div>
+        </div>
+    </div>
+    <div class="bot-wrapper flex" id="bot">
+        <div class="box">
+            <div class="boxSub">
+                
+            </div>
+        </div>
+        <div class="box flex-v">
+            <div class="boxWrap">
+                <div class="boxSub">
+                    
+                </div>
+                <div class="boxSub">
+                    
+                </div>
+            </div>
+            <div class="boxSub">
+                
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxSub"></div>
+        </div>
+    </div>
+
+    <script>
+        var co;
+        
+        document.addEventListener('DOMContentLoaded', function() {    
+            fetch("memo-otak.json")
+                .then(response => response.json())
+                .then(data => {
+                    co = data
+                    tingginya();
+                })
+                .catch(error => console.error('Error:', error));
+
+            window.addEventListener('resize', tingginya);
+
+        });
+
+        function tingginya() {
+            var top = document.getElementById("top");
+            var bot = document.getElementById("bot");
+
+            var tinggiLayar = window.innerHeight;
+
+            top.style.height = tinggiLayar * 0.2 + 'px';
+            bot.style.height = tinggiLayar * 0.8 + 'px';
+        }
+
+        function setPlayer() {
+            
+        }
+    </script>
+</body>
+</html>
