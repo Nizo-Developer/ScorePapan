@@ -2,34 +2,52 @@ var score1 = 1;
 var score2 = 1;
 var co = {};
 
-//Mengambil data dari json memo-otak.json
-fetch("memo-otak.json")
-    .then(response => response.json())
-    .then(data => {
-        co = data
-        
-        var player = [];
-        var index;
-        var con = localStorage.getItem('con')
+document.addEventListener('DOMContentLoaded', function() {    
+    //Mengambil data dari json memo-otak.json
+    fetch("memo-otak.json")
+        .then(response => response.json())
+        .then(data => {
+            co = data
 
-        for (i = 1; i <= con*2; i++) {
-            player.push(localStorage.getItem('player' + i))
-            for (l = 1; l <= 3; l++) {
-                if (l == 1) {
-                    index = "s"
-                } else if (l == 2) {
-                    index = "c"
-                } else {
-                    index = "b"
+            notif(1, 1, 1, 1);
+            
+            var player = [];
+            var index;
+            var con = localStorage.getItem('con')
+    
+            for (i = 1; i <= con*2; i++) {
+                player.push(localStorage.getItem('player' + i))
+                for (l = 1; l <= 3; l++) {
+                    if (l == 1) {
+                        index = "s"
+                    } else if (l == 2) {
+                        index = "c"
+                    } else {
+                        index = "b"
+                    }
+                    console.log("p" + i + index)
+                    document.getElementById("p" + i + index).innerHTML = player[i-1]
                 }
-                console.log("p" + i + index)
-                document.getElementById("p" + i + index).innerHTML = player[i-1]
             }
-        }
+            
+            var Tab = false;
 
-        window.open('score-display.html', '_blank');
-    })
-    .catch(error => console.error('Error:', error));
+            var windows = window.open('', '_blank');
+
+            for (var i = 0; i < windows.length; i++) {
+                if (windows[i].location.href === 'http://127.0.0.1:5500/Proyek/score-display.html' || windows[i].location.href === '') {
+                    Tab = true;
+                    windows[i].focus();
+                    break;
+                }
+            }
+
+            if (!Tab) {
+                window.open('score-display.html', '_blank');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
 function cl(conlog) {
@@ -158,5 +176,11 @@ function notif(con, p, teaming, team) {
         }   
         cl("pe")
     }
-}
+};
+
+function setScore() {
+    var sc1 = document.getElementById('score1');
+    var sc2 = document.getElementById('score2');
+    sc1
+};
 

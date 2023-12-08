@@ -536,7 +536,8 @@
         function menuClose() {
             var close = document.getElementById('asize');
             var closeBg = document.getElementById('closeBg');
-            var body = document.getElementById('body')
+            var body = document.getElementById('body');
+    
             body.style.overflowY = 'visible';
             close.style.display = "none";
             closeBg.style.display = "none";
@@ -544,18 +545,20 @@
             localStorage.removeItem('player1')
             localStorage.removeItem('player2')
             localStorage.removeItem('player3')
-            localStorage.removeItem('player4')
+            localStorage.removeItem('player4');
         };
 
         function soloDuo() {
             var checker = document.getElementById('singDoub');
             var strCheck = document.getElementById('solo-duo');
-
+            var con = co.conditional;
+            
             var t1 = document.getElementById("t1");
             var t2 = document.getElementById("t2");
             var t3 = document.getElementById("t3");
             var t4 = document.getElementById("t4");
             var t5 = document.getElementById("t5");
+            var t = [t1, t2, t3, t4];
 
             var link = document.getElementById('link');
 
@@ -572,6 +575,11 @@
                     t2.style.display = "flex";
                     t3.style.display = "flex";
                     t4.style.display = "flex";
+
+                    for (i = 0; i <= (con*2)-1; i++) {
+                        t[i].style.borderColor = 'white';
+                        console.log('white');
+                    }
                 } else {
                     console.log("solo")
                     co.conditional = 1;
@@ -587,6 +595,11 @@
 
                     localStorage.removeItem('player3')
                     localStorage.removeItem('player4')
+
+                    for (i = 0; i <= (con*2)-1; i++) {
+                        t[i].style.borderColor = 'white';
+                        console.log('white');
+                    }
                 }
 
             console.log(co.conditional)

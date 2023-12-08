@@ -21,6 +21,7 @@
         .boxSub {
             height: 100%;
             width: 100%;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,7 +58,7 @@
     </style>
 </head>
 <body>
-    <div class="top-wrapper flex" id="top">
+    <div class="top-wrapper flex" id="tp">
         <div class="box flex-v" id="team1">
             <div class="boxSub"></div>
         </div>
@@ -65,11 +66,9 @@
             <div class="boxSub"></div>
         </div>
     </div>
-    <div class="bot-wrapper flex" id="bot">
+    <div class="bot-wrapper flex" id="bt">
         <div class="box">
-            <div class="boxSub">
-                
-            </div>
+            <div class="boxSub" id="score1"></div>
         </div>
         <div class="box flex-v">
             <div class="boxWrap">
@@ -85,39 +84,27 @@
             </div>
         </div>
         <div class="box">
-            <div class="boxSub"></div>
+            <div class="boxSub" id="score2"></div>
         </div>
     </div>
 
+    <script src="otak-experimental.js"></script>
     <script>
-        var co;
-        
-        document.addEventListener('DOMContentLoaded', function() {    
-            fetch("memo-otak.json")
-                .then(response => response.json())
-                .then(data => {
-                    co = data
-                    tingginya();
-                })
-                .catch(error => console.error('Error:', error));
-
+        document.addEventListener('DOMContentLoaded', function() {
+            tingginya();
+            
             window.addEventListener('resize', tingginya);
-
         });
 
         function tingginya() {
-            var top = document.getElementById("top");
-            var bot = document.getElementById("bot");
+            var top = document.getElementById('tp');
+            var bot = document.getElementById('bt');
 
             var tinggiLayar = window.innerHeight;
-
+                
             top.style.height = tinggiLayar * 0.2 + 'px';
             bot.style.height = tinggiLayar * 0.8 + 'px';
-        }
-
-        function setPlayer() {
-            
-        }
+        };
     </script>
 </body>
 </html>
