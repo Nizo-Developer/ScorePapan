@@ -30,21 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            var Tab = false;
-
-            var windows = window.open('', '_blank');
-
-            for (var i = 0; i < windows.length; i++) {
-                if (windows[i].location.href === 'http://127.0.0.1:5500/Proyek/score-display.html' || windows[i].location.href === '') {
-                    Tab = true;
-                    windows[i].focus();
-                    break;
-                }
-            }
-
-            if (!Tab) {
-                window.open('score-display.html', '_blank');
-            }
+            window.open('score-display.html', '_blank');
         })
         .catch(error => console.error('Error:', error));
 });
