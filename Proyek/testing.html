@@ -3,91 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animated Content</title>
   <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .animated-container {
-      overflow: hidden;
-      transition: height 0.3s ease;
-      height: 100px;
-    }
-
-    .content {
-      height: fit-content;
+    td {
+      border: 1px solid #333;
       padding: 10px;
-      border: 1px solid #ddd;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
-    #addContentBtn {
-      margin-top: 10px;
-      cursor: pointer;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 5px;
+    .single-cell {
+      width: 100%;
+    }
+
+    .double-cell {
+      width: 50%;
     }
   </style>
+  <title>Table Example</title>
 </head>
 <body>
-  <div class="animated-container">
-    <div class="content" id="animated-content">
-      <!-- Konten Anda akan ditambahkan di sini -->
-    </div>
-    <button id="addContentBtn">Tambah Konten</button>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Fungsi untuk mengatur tinggi animasi
-      function setAnimatedHeight() {
-        var animatedContainer = $('.animated-container');
-        var content = $('#animated-content');
 
-        // Menetapkan tinggi animasi sesuai dengan tinggi konten
-        animatedContainer.height(content.height());
-      }
+  <table>
+    <colgroup>
+      <col class="single-cell">
+      <col class="double-cell">
+      <col class="double-cell">
+    </colgroup>
+    <tr>
+      <td class="single-cell">Single Cell</td>
+    </tr>
+    <tr>
+      <td class="double-cell">Double Cell</td>
+      <td class="double-cell">Double Cell</td>
+    </tr>
+  </table>
 
-      // Menangani perubahan konten dan memperbarui tinggi animasi
-      function updateContent(newContent) {
-        var content = $('#animated-content');
-
-        // Mengganti konten
-        content.html(newContent);
-
-        // Memperbarui tinggi animasi
-        setAnimatedHeight();
-      }
-
-      // Menanggapi perubahan konten
-      $('#animated-content').on('input', function() {
-        // Pembaruan konten dan animasi ketika konten berubah
-        updateContent($(this).text());
-      });
-
-      // Menanggapi klik pada tombol "Tambah Konten"
-      $('#addContentBtn').on('click', function() {
-        // Menambahkan konten baru
-        var currentContent = $('#animated-content').text();
-        var newContent = currentContent + '<p>Isi Konten Baru</p>';
-        updateContent(newContent);
-      });
-
-      // Inisialisasi tinggi animasi
-      setAnimatedHeight();
-    });
-  </script>
 </body>
 </html>

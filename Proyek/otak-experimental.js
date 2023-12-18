@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById("p" + i + index).innerHTML = player[i-1]
                 }
             }
+            // window.open('score-display.html', '_blank');
             
-            window.open('score-display.html', '_blank');
         })
         .catch(error => console.error('Error:', error));
 });
@@ -66,7 +66,11 @@ function inputing() {
     //Looping 4x untuk membuat 4 kolom (td)
     for (var i = 1; i <= p; i++) {
         var kolom = document.createElement("td")
-        kolom.setAttribute("class", "data") 
+        if (i < p) {
+            kolom.setAttribute("class", "data br bt") 
+        } else {
+            kolom.setAttribute("class", "data bt")
+        }
         //Menambahkan si kolom (tr) ke baris (td)
         //Sistemnya kyk variabel yang belum di print
         baris.appendChild(kolom)

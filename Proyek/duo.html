@@ -5,27 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="design.css">
     <title>ScorePapan Double</title>
+    <style>
+        table {
+            border-spacing: 0;
+        }
+
+        .br {
+            border-color: white;
+            border-right: 1px solid white;
+            border-collapse: collapse;
+            border-radius: 0;
+        }
+
+        .bt {
+            border-color: white;
+            border-top: 1px solid white;
+            border-collapse: collapse;
+            border-radius: 0;
+        }
+
+        .rg {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .lf {
+            display: flex;
+            align-items: center;
+        }
+        
+        .name, .score {
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
-    <div class="playerName">
+    <div class="playerName" style="flex-direction: column">
         <table class="name" style="position: sticky;">
+            <tr>
+                <td class="data br">Team 1</td>
+                <td class="data ">Team 2</td>
+            </tr>
+        </table>
+        <table class="name" style="position: sticky; padding-top: 0;">
             <tr id="baris" style="position: sticky;">
-                <td class="data" id="p1s">player1</td>
-                <td class="data" id="p2s">player2</td>
-                <td class="data" id="p3s">player3</td>
-                <td class="data" id="p4s">player4</td>
+                <td class="data br bt" id="p1s">player1</td>
+                <td class="data br bt" id="p2s">player2</td>
+                <td class="data br bt" id="p3s">player3</td>
+                <td class="data bt" id="p4s">player4</td>
             </tr>
         </table>
     </div>
     <div style="width: 100%; display: absolute; margin-bottom: 45%;">
-        <div class="player">
+        <div class="player" style="flex-direction: column;">
+            <table class="name">
+                <tr>
+                    <td class="data br">Team 1</td>
+                    <td class="data ">Team 2</td>
+                </tr>
+            </table>
             <!-- yang ini -->
             <table id="dataContent" class="score" style="margin-bottom: -40%;">
                 <tr id="baris">
-                    <td class="data" id="p1c">player1</td>
-                    <td class="data" id="p2c">player2</td>
-                    <td class="data" id="p3c">player3</td>
-                    <td class="data" id="p4c">player4</td>
+                    <td class="data br bt" id="p1c">player1</td>
+                    <td class="data br bt" id="p2c">player2</td>
+                    <td class="data br bt" id="p3c">player3</td>
+                    <td class="data bt" id="p4c">player4</td>
                 </tr>
             </table>
         </div>
