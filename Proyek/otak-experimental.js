@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         })
         .catch(error => console.error('Error:', error));
+
 });
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
@@ -66,11 +67,7 @@ function inputing() {
     //Looping 4x untuk membuat 4 kolom (td)
     for (var i = 1; i <= p; i++) {
         var kolom = document.createElement("td")
-        if (i < p) {
-            kolom.setAttribute("class", "data br bt") 
-        } else {
-            kolom.setAttribute("class", "data bt")
-        }
+        kolom.setAttribute("class", "data")
         //Menambahkan si kolom (tr) ke baris (td)
         //Sistemnya kyk variabel yang belum di print
         baris.appendChild(kolom)
@@ -104,6 +101,7 @@ function inputing() {
     var dc = document.getElementById("dataContent");
     //Kalau ini anggep aja print karna kita ambil data dari element dari id yang ada di tag html di atas scroll cari komentar "yang ini"
     dc.appendChild(baris)
+    baris.style.position = "static"
     co.notif = parseInt(0)
     cl("aa" + co.notif)
 }
@@ -125,7 +123,6 @@ function notif(con, p, teaming, team) {
     }
     console.log("x", co.notif, "y", co.teaming, "z", co.team)
 
-
     if (nt > 0) {
         for (var i = 0; i < sub.length; i++) {
             sub[i].addEventListener("mouseup", tp);
@@ -141,7 +138,7 @@ function notif(con, p, teaming, team) {
             //gas
             //bentar ngelag oke
             not.style.left = "50%";
-            not.style.top = "70%";
+            not.style.top = "90%";
             kondisi();
             cl("raw")
         };

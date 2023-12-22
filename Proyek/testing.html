@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    td {
-      border: 1px solid #333;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .single-cell {
-      width: 100%;
-    }
-
-    .double-cell {
-      width: 50%;
-    }
-  </style>
-  <title>Table Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listeners for Keyboard</title>
 </head>
 <body>
 
-  <table>
-    <colgroup>
-      <col class="single-cell">
-      <col class="double-cell">
-      <col class="double-cell">
-    </colgroup>
-    <tr>
-      <td class="single-cell">Single Cell</td>
-    </tr>
-    <tr>
-      <td class="double-cell">Double Cell</td>
-      <td class="double-cell">Double Cell</td>
-    </tr>
-  </table>
+<!-- Menambahkan elemen dengan ID "output" untuk menampilkan hasil klik -->
+<div id="output">Hasil Klik:</div>
+
+<!-- Menambahkan event listener untuk keyboard -->
+<script>
+    document.addEventListener('keydown', function(event) {
+        switch (event.key) {
+            case '1':
+                handleKeyPress('Klik Angka 1');
+                break;
+            case '2':
+                handleKeyPress('Klik Angka 2');
+                break;
+            case '3':
+                handleKeyPress('Klik Angka 3');
+                break;
+            case '4':
+                handleKeyPress('Klik Angka 4');
+                break;
+            case 'Enter':
+                handleKeyPress('Klik Enter');
+                break;
+            default:
+                break;
+        }
+    });
+
+    // Fungsi untuk menangani semua klik
+    function handleKeyPress(message) {
+        document.getElementById('output').innerText = message;
+        // Tambahkan kode atau fungsi lain yang ingin Anda jalankan di sini
+    }
+</script>
 
 </body>
 </html>

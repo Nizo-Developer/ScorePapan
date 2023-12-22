@@ -7,7 +7,7 @@
     <title>ScorePapan Double</title>
     <style>
         :root {
-            --height: 10px;
+            --height: 35px;
         }
 
         table {
@@ -40,14 +40,14 @@
         }
         
         .playerName {
-            top: var(--height)*2;
+            top: var(--height);
         }
 
         .name, .score {
-            background-color: transparent;
+            background-color: divansparent;
         }
 
-        .nav {
+        .navigation {
             height: var(--height);
             background-color: black;
             z-index: 12;
@@ -59,48 +59,72 @@
             height: fit-content;
             width: 100%;
         }
+
+        .dataWrapper {
+            align-items: center;
+        }
+
+        .dataGroup {
+            padding: 0 20px;
+        }
+
+        .flex-c {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .box-h {
+            display: flex;
+            background-color: orange;
+            height: 100px;
+            width: auto;
+        }
+
+        .box-v {
+            background-color: black;
+            color: white;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
-    <div class="nav">
+    <div class="navigation">
 
     </div>
-    <div class="wrapper">
-        <div class="playerName" style="flex-direction: column">
-            <table class="name" style="position: sticky;">
-                <tr>
-                    <td class="data">Team 1</td>
-                    <td class="data">Team 2</td>
-                </tr>
-            </table>
-            <table class="name" style="position: sticky; padding-top: 0;">
-                <tr id="baris" style="position: sticky;">
-                    <td class="data" id="p1s">player1</td>
-                    <td class="data" id="p2s">player2</td>
-                    <td class="data" id="p3s">player3</td>
-                    <td class="data" id="p4s">player4</td>
-                </tr>
-            </table>
+    <div class="dataWrapper">
+        <div class="playerName flex-c" style="flex-direction: column;">
+            <div class="box-h">
+                <div class="box-v">Team 1</div>
+                <div class="box-v">Team 2</div>
+            </div>
         </div>
-        <div class="player" style="width: 100%; margin-bottom: 45%; flex-direction: column;">
-            <table class="name">
-                <tr>
-                    <td class="data">Team 1</td>
-                    <td class="data">Team 2</td>
-                </tr>
-            </table>
-            <!-- yang ini -->
-            <table id="dataContent" class="score" style="margin-bottom: -40%;">
-                <tr id="baris">
-                    <td class="data" id="p1c">player1</td>
-                    <td class="data" id="p2c">player2</td>
-                    <td class="data" id="p3c">player3</td>
-                    <td class="data" id="p4c">player4</td>
-                </tr>
-            </table>
-            <hr id="bottom">
+        <div class="dataGroup flex-c" id="dataContent">
+            <div class="box-h" id="baris" style="position: sticky;">
+                <div class="box-v" id="p1s">player1</div>
+                <div class="box-v" id="p2s">player2</div>
+                <div class="box-v" id="p3s">player3</div>
+                <div class="box-v" id="p4s">player4</div>
+            </div>
         </div>
     </div>
+
+    <!-- <div class="player" style="flex-direction: column;">
+        <div class="box-h">
+            <div class="box-v">Team 1</div>
+            <div class="box-v">Team 2</div>
+        </div>
+        <div class="box-h" id="baris">
+            <div class="box-v" id="p1c">player1</div>
+            <div class="box-v" id="p2c">player2</div>
+            <div class="box-v" id="p3c">player3</div>
+            <div class="box-v" id="p4c">player4</div>
+        </div>
+        <hr id="bottom">
+    </div> -->
     <div class="btn-container">
         <a href="#bottom"><button class="btn sub" id="p1b" onclick="notif(1, 1, 1, 2)">player1</button></a>
         <a href="#bottom"><button class="btn sub" id="p2b" onclick="notif(1, 2, 1, 2)">player2</button></a>
@@ -139,6 +163,6 @@
         // };
         
     </script>
-    <script src="otak-experimental.js"></script>
+    <script src="otak.js"></script>
 </body>
 </html>

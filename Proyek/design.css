@@ -12,9 +12,10 @@
     display: flex;
 }
 
-.data {
+.box-v {
     width: 100px;
     height: 40px;
+
 }
 
 .player {
@@ -29,7 +30,7 @@
 
 .playerName {
     display: flex;
-    position: fixed;
+    position: sticky;
     top: 0px;
     right: 0px;
     left: 0px;
@@ -64,6 +65,7 @@
     background-color: cadetblue;
     position: fixed;
     gap: 0.5vw;
+    z-index: 20;
 }
 
 .btn {
@@ -107,11 +109,17 @@
     text-align: center;
 }
 
-.name {
+.namex {
     width: auto;
     background-color: #5f9ea0;
     padding: var(--ptb) var(--ptb) 0px var(--ptb);
     border-radius: 5px 5px 0px 0px;
+}
+
+.name {
+    width: auto;
+    background-color: #5f9ea0;
+    padding: var(--ptb) var(--ptb) 0px var(--ptb);
 }
 
 .score {
@@ -128,7 +136,6 @@ td {
 
 table, tr {
     gap: 5px;
-    color: black;
 }
 
 table {
@@ -153,7 +160,7 @@ hr {
     box-shadow: 0 10px #477274;
     position: fixed;
     display: none;
-    z-index: 11;
+    z-index: 22;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -172,13 +179,8 @@ hr {
     width: 100%;
     position: fixed;
     background-color: rgba(211, 211, 211, 0.5);
-    z-index: 10;
+    z-index: 21;
     display: none;
-}
-
-body, .playerName, td {
-    background-color: black;
-    color: white;
 }
 
 @media only screen and (max-width: 600px) {
