@@ -1,5 +1,12 @@
 var score1 = 1;
 var score2 = 1;
+var spareTabData = {
+    streak: ["-", 0]
+}
+var tabData = {
+    totalTab: 0,
+    tab1: `${spareTabData.idt}:${spareTabData.data1}`
+}
 var co = {};
 
 document.addEventListener('DOMContentLoaded', function() {    
@@ -9,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             co = data
 
+            newTab()
             notif(1, 1, 1, 1);
+            loadData();
             
             var player = [];
             var index;
@@ -17,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             for (i = 1; i <= con*2; i++) {
                 player.push(localStorage.getItem('player' + i))
-                for (l = 1; l <= 3; l++) {
+                for (l = 1; l <= 2; l++) {
                     if (l == 1) {
                         index = "s"
                     // } else if (l == 2) {
@@ -29,8 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById("p" + i + index).innerHTML = player[i-1]
                 }
             }
-            // window.open('score-display.html', '_blank');
+
             
+            // window.open('score-display.html', '_blank');
+            console.log("ULANG")
         })
         .catch(error => console.error('Error:', error));
 
@@ -64,11 +75,14 @@ function inputing() {
         var p = 4
         var k = 2
     }
+    var numBox = document.createElement("div")
+    numBox.setAttribute("class", "num")
+    baris.appendChild(numBox)
 
     //Looping 4x untuk membuat 4 kolom (td)
     for (var i = 1; i <= p; i++) {
         var kolom = document.createElement("div")
-        kolom.setAttribute("class", "box-h")
+        kolom.setAttribute("class", "box-v")
         //Menambahkan si kolom (tr) ke baris (td)
         //Sistemnya kyk variabel yang belum di print
         baris.appendChild(kolom)
@@ -93,11 +107,56 @@ function inputing() {
                 score2++
             }
         } else {
-            kolom.innerHTML = 'x'
+            kolom.innerHTML = ' '
+        }
+        
+        if (i == noda) {
+            pointId = ["a","b","c","d"]
+
+            
+            if (pointId[i - 1] == spareTabData.streak[0]) {
+                spareTabData.streak[1]++
+            } else {
+                if (spareTabData.streak[0] !== "-") {
+                    if (spareTabData.streak[1] == 1) {
+                        var addData = spareTabData.streak[1]
+                    } else {
+                        var addData = ""
+                    }
+
+                    if (spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length - 1] == ";") {
+                        spareTabData[`data${co.noTab}`] += spareTabData.streak[0] + addData
+                    } else {
+                        spareTabData[`data${co.noTab}`] += "," + spareTabData.streak[0] + addData
+                    }
+                    localStorage.setItem(`data${co.noTab}`, spareTabData[`data${co.noTab}`])
+                } 
+                switch (noda) {
+                    case 1:
+                        spareTabData.streak[1] = 'a';
+                        break;
+                    case 2:
+                        spareTabData.streak[1] = 'b';
+                        break;
+                    case 3:
+                        spareTabData.streak[1] = 'c';
+                        break;
+                    case 4:
+                        spareTabData.streak[1] = 'd';
+                        break;
+                    default:
+                        spareTabData.streak[1] = '';
+                }
+                spareTabData.streak[1] = 1;
+            }
+            console.log(spareTabData.streak)
+            console.log(spareTabData.data1)
         }
         cl(score1)
         cl(score2)
     }
+
+    numBox.innerHTML = (score1 + score2) - 2;
 
     var dc = document.getElementById("dataContent");
     //Kalau ini anggep aja print karna kita ambil data dari element dari id yang ada di tag html di atas scroll cari komentar "yang ini"
@@ -107,7 +166,7 @@ function inputing() {
     cl("aa" + co.notif)
 }
 
-function notif(con, p, teaming, team) {
+function notif(con, p, teaming, team, noTab) {
     var not = document.getElementById("notif");
     var nobg = document.getElementById("notif-bg");
     var sub = document.getElementsByClassName("sub");
@@ -121,6 +180,9 @@ function notif(con, p, teaming, team) {
     }
     if (team !== undefined) {
         co.team = parseInt(team)
+    }
+    if (noTab !== undefined) {
+        co.noTab = parseInt(noTab)
     }
     console.log("x", co.notif, "y", co.teaming, "z", co.team)
 
@@ -172,3 +234,78 @@ function setScore() {
     sc1
 };
 
+function newTab() {
+    var widthData = [35];
+    
+    
+    tabData.totalTab++
+    var tab = document.createElement("div")
+    tab.setAttribute("class", "default-tab tab")
+    tab.setAttribute("id", `dataTab${tabData.totalTab}`)
+    
+    if (tabData.totalTab == 1) {
+        tab.innerHTML = "ScorePapan Badminton"
+    }
+    
+    var tabWrapper = document.getElementById("tabWr")
+    tabWrapper.appendChild(tab)
+
+    for (var i = 1; i <= tabData.totalTab; i++) {
+        var tabId = document.getElementById(`dataTab${i}`);
+        var tabWidth = tabId.clientWidth;
+        widthData.push(tabWidth);
+        console.log(tabId, tabWidth, widthData);
+    }
+    var sum = widthData.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    
+    tab.setAttribute("style", `z-index: ${tabData.totalTab * -1}; left: ${sum - widthData[widthData.length - 1] - (tabData.totalTab) * 7}px;`)
+    var nt = document.getElementById("nt")
+    nt.style.zIndex = tabData.totalTab * -1 - 1
+    nt.style.left = (sum - (tabData.totalTab + 1) * 7) + "px"
+
+    spareTabData[`data${tabData.totalTab}`] = `${tabData.totalTab};`
+    
+    if (tabData.totalTab > 1) {
+        localStorage.setItem("DATA", JSON.stringify(tabData))
+    }
+}
+
+function loadData() {
+    console.log('MUAHAAHAHHAHAHAAAAAAAAAA')
+    
+    for (i = 1; i <= tabData.totalTab; i++) {
+        var rawData = `data${i}`;
+        if (localStorage.getItem(rawData) !== null) {
+            var cookData = localStorage.getItem(rawData).slice(2).split(",");
+            console.log(cookData)
+            for (o = 1; o <= cookData.length; o++) {
+                var load = []
+                switch (cookData[o][0]) {
+                    case 'a':
+                        load.push(1);
+                        break;
+                    case 'b':
+                        load.push(2);
+                        break;
+                    case 'c':
+                        load.push(3);
+                        break;
+                    case 'd':
+                        load.push(4);
+                        break;
+                    default:
+                        load.push('');
+                }
+                
+                var funcNotif = document.getElementById(`p${load[0]-1}b`).getAttribute("onclick")
+                console.log(funcNotif)
+                if (cookData[o].length == 1) {
+                    co.notif = parseInt(load[0])
+                }
+            }
+        }
+        if (i > 1) {
+            newTab()
+        }
+    }
+}

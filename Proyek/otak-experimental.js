@@ -170,4 +170,3 @@ function setScore() {
     var sc2 = document.getElementById('score2');
     sc1
 };
-
