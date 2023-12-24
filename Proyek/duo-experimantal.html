@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="design.css">
     <title>ScorePapan Double</title>
     <style>
@@ -49,7 +50,7 @@
 
         .navigation {
             height: var(--height);
-            background-color: black;
+            background-color: white;
             z-index: 12;
             display: flex;
             position: relative;
@@ -65,7 +66,8 @@
         }
 
         .dataGroup {
-            padding: 0 20px;
+            margin: 0 20px;
+            margin-bottom: 90px;
         }
 
         .flex-c {
@@ -74,10 +76,16 @@
 
         }
 
+        .num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
+
         .box-h {
             display: flex;
             background-color: orange;
-            height: 100px;
             width: auto;
         }
 
@@ -89,27 +97,94 @@
             align-items: center;
             justify-content: center;
         }
+
+        .home {
+            height: var(--height);
+            width: var(--height);
+            background-color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab {
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px -2px 10px -2px black;
+            position: absolute;
+            font-weight: 1;
+            font-size: 14px;
+            left: -150px;
+            transition: left 0.5s ease;
+        }
+
+        .new-tab {
+            height: var(--height);
+            width: var(--height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: gray;
+            z-index: -2;
+            transition-delay: 0.2s;
+        }
+
+        .new-tab:hover {
+            background-color: lightgray;
+        }
+
+        .new-tab:hover .fa-plus:hover {
+            cursor: pointer;
+        }
+
+        .default-tab {
+            height: var(--height);
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: lightblue;
+            padding: 0 15px;
+            
+            z-index: -1;
+        }
+
+        .tabWrapper {
+            display: flex;
+        }
+
+
     </style>
 </head>
 <body>
     <div class="navigation">
+        <div class="home tab" style="left: 0;">
+            <i class="fa-solid fa-house fa-1xs" style="color: white;"></i>
+        </div>
+        <div class="tabWrapper" id="tabWr">
 
+        </div>
+        <div class="new-tab tab" id="nt" onclick="newTab()">
+            <i class="fa-solid fa-plus fa-1xs" style="color: white;"></i>
+        </div>
     </div>
     <div class="dataWrapper">
         <div class="playerName flex-c" style="flex-direction: column;">
             <div class="box-h">
+                <div class="num"></div>
                 <div class="box-v">Team 1</div>
                 <div class="box-v">Team 2</div>
             </div>
-        </div>
-        <div class="dataGroup flex-c" id="dataContent">
             <div class="box-h" id="baris" style="position: sticky;">
+                <div class="num"></div>
                 <div class="box-v" id="p1s">player1</div>
                 <div class="box-v" id="p2s">player2</div>
                 <div class="box-v" id="p3s">player3</div>
                 <div class="box-v" id="p4s">player4</div>
             </div>
         </div>
+        <div class="dataGroup flex-c" id="dataContent">
+        </div>
+        <hr id="bottom">
     </div>
 
     <!-- <div class="player" style="flex-direction: column;">
@@ -126,10 +201,10 @@
         <hr id="bottom">
     </div> -->
     <div class="btn-container">
-        <a href="#bottom"><button class="btn sub" id="p1b" onclick="notif(1, 1, 1, 2)">player1</button></a>
-        <a href="#bottom"><button class="btn sub" id="p2b" onclick="notif(1, 2, 1, 2)">player2</button></a>
-        <a href="#bottom"><button class="btn sub" id="p3b" onclick="notif(1, 3, 2, 2)">player3</button></a>
-        <a href="#bottom"><button class="btn sub" id="p4b" onclick="notif(1, 4, 2, 2)">player4</button></a>
+        <a href="#bottom"><button class="btn sub" id="p1b" onclick="notif(1, 1, 1, 2, 1)">player1</button></a>
+        <a href="#bottom"><button class="btn sub" id="p2b" onclick="notif(1, 2, 1, 2, 1)">player2</button></a>
+        <a href="#bottom"><button class="btn sub" id="p3b" onclick="notif(1, 3, 2, 2, 1)">player3</button></a>
+        <a href="#bottom"><button class="btn sub" id="p4b" onclick="notif(1, 4, 2, 2, 1)">player4</button></a>
         <!-- <button class="btn" onclick="inputing(1, 1)">player1</button>
         <button class="btn" onclick="inputing(1, 2)">player2</button>
         <button class="btn" onclick="inputing(2, 3)">player3</button>
