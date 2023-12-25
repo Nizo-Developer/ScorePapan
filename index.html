@@ -542,10 +542,9 @@
             close.style.display = "none";
             closeBg.style.display = "none";
 
-            localStorage.removeItem('player1')
-            localStorage.removeItem('player2')
-            localStorage.removeItem('player3')
-            localStorage.removeItem('player4');
+            var playerListLs = JSON.parse(localStorage.getItem("playerList"));
+            playerListLs = {};
+            localStorage.setItem("playerList", JSON.stringify(dataLocalStorage));
         };
 
         function soloDuo() {
@@ -593,8 +592,10 @@
                     t3.style.display = "none";
                     t4.style.display = "none";
 
-                    localStorage.removeItem('player3')
-                    localStorage.removeItem('player4')
+                    var playerListLs = JSON.parse(localStorage.getItem("playerList"));
+                    delete playerListLs.player3
+                    delete playerListLs.player4
+                    localStorage.setItem("playerList", JSON.stringify(playerListLs));
 
                     for (i = 0; i <= (con*2)-1; i++) {
                         t[i].style.borderColor = 'white';
@@ -606,6 +607,7 @@
         }
 
         function getValue() {
+            var playerList = {};
             var t1 = document.getElementById("t1").value;
             var t2 = document.getElementById("t2").value;
             var t3 = document.getElementById("t3").value;
@@ -636,17 +638,19 @@
                 
                 if (co.conditional == 1 ) {
                     // link.href = 'Proyek/solo.html';
-                    localStorage.setItem('player1', t1)
-                    localStorage.setItem('player2', t2)
+                    playerList.player1 = t1
+                    playerList.player2 = t2
+                    localStorage.setItem('playerList', JSON.stringify(playerList))
                     window.location.href = 'Proyek/solo.html';
                 } 
                 
                 if (co.conditional == 2 && t1 && t2 && t3 && t4) {
                     // link.href = 'Proyek/duo.html';
-                    localStorage.setItem('player1', t1)
-                    localStorage.setItem('player2', t2)
-                    localStorage.setItem('player3', t3)
-                    localStorage.setItem('player4', t4)
+                    playerList.player1 = t1
+                    playerList.player2 = t2
+                    playerList.player3 = t3
+                    playerList.player4 = t4
+                    localStorage.setItem('playerList', JSON.stringify(playerList))
                     window.location.href = 'Proyek/duo-experimantal.html'; 
                 }
             } else {

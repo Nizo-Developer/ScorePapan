@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById("p" + i + index).innerHTML = player[i-1]
                 }
             }
+
             // window.open('score-display.html', '_blank');
             
         })
         .catch(error => console.error('Error:', error));
-
+        
+    document.addEventListener('keydown', handleKeyPress);
 });
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
@@ -170,3 +172,10 @@ function setScore() {
     var sc2 = document.getElementById('score2');
     sc1
 };
+
+
+
+
+
+
+

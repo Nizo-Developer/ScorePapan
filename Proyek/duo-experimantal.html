@@ -42,6 +42,7 @@
         
         .playerName {
             top: var(--height);
+            border-bottom: 1px solid white;
         }
 
         .name, .score {
@@ -51,9 +52,11 @@
         .navigation {
             height: var(--height);
             background-color: white;
+            width: 100%;
             z-index: 12;
             display: flex;
-            position: relative;
+            position: fixed;
+            text-wrap: nowrap;
         }
 
         .wrapper {
@@ -67,7 +70,8 @@
 
         .dataGroup {
             margin: 0 20px;
-            margin-bottom: 90px;
+            margin-top: var(--height);
+            margin-bottom: 80px;
         }
 
         .flex-c {
@@ -132,7 +136,7 @@
             background-color: lightgray;
         }
 
-        .new-tab:hover .fa-plus:hover {
+        .new-tab:hover, .fa-plus:hover {
             cursor: pointer;
         }
 
@@ -144,8 +148,13 @@
             justify-content: center;
             background-color: lightblue;
             padding: 0 15px;
-            
             z-index: -1;
+            transition-delay: 0.1s;
+        }
+
+        .default-tab:hover {
+            background-color: lightgray;
+            cursor: pointer;
         }
 
         .tabWrapper {
