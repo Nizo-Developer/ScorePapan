@@ -3,29 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Remove All Children</title>
+  <title>Activate Input on Keyboard Event</title>
 </head>
 <body>
 
-<!-- Container elemen dengan beberapa anak -->
-<div id="container">
-  <p>Anak 1</p>
-  <p>Anak 2</p>
-  <p>Anak 3</p>
-</div>
-
-<button onclick="hapusSemuaAnak()">Hapus Semua Anak</button>
+<!-- Elemen input yang akan diaktifkan -->
+<input type="text" id="dynamicInput" readonly>
 
 <script>
-function hapusSemuaAnak() {
-  // Mendapatkan referensi elemen container berdasarkan ID
-  var containerElement = document.getElementById('container');
+// Fungsi untuk mengaktifkan elemen input
+function activateInput() {
+  // Ambil elemen input
+  var inputElement = document.getElementById('dynamicInput');
 
-  // Menghapus semua elemen anak
-  while (containerElement.firstChild) {
-    containerElement.removeChild(containerElement.firstChild);
-  }
+  // Hapus atribut readonly agar elemen input dapat diubah
+  inputElement.removeAttribute('readonly');
+
+  // Fokuskan elemen input
+  inputElement.focus();
 }
+
+// Tambahkan event listener untuk mendengarkan saat tombol spasi pada keyboard ditekan
+document.addEventListener('keydown', function(event) {
+  // Cek jika tombol spasi (32) ditekan
+  if (event.keyCode === 32) {
+    // Panggil fungsi activateInput untuk mengaktifkan elemen input
+    setTimeout(activateInput, 0);
+  }
+});
+
+// Tambahkan event listener untuk mendengarkan saat elemen input kehilangan fokus
+document.getElementById('dynamicInput').addEventListener('blur', function() {
+  // Tambahkan kembali atribut readonly saat elemen input kehilangan fokus
+  this.setAttribute('readonly', 'readonly');
+});
 </script>
 
 </body>

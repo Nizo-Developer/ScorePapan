@@ -1,5 +1,6 @@
 :root {
     --ptb:  5px;
+    --height: 35px;
 }
 
 * {
@@ -15,7 +16,12 @@
 .box-v {
     width: 100px;
     height: 40px;
-
+    background-color: black;
+    color: white;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player {
@@ -31,7 +37,6 @@
 .playerName {
     display: flex;
     position: sticky;
-    top: 0px;
     right: 0px;
     left: 0px;
     justify-content: center;
@@ -40,17 +45,8 @@
     z-index: 1;
     background-color: #fff;
     padding-bottom: 0;
-}
-
-.nav {
-    display: flex;
-    position: absolute;
-    right: 0px;
-    left: 0px;
-    justify-content: center;
-    width: auto;
-    padding: 20px;
-    background-color: cadetblue;
+    top: var(--height);
+    border-bottom: 1px solid white;
 }
 
 .btn-container {
@@ -181,6 +177,109 @@ hr {
     background-color: rgba(211, 211, 211, 0.5);
     z-index: 21;
     display: none;
+}
+
+
+.playerName {
+
+}
+
+.navigation {
+    height: var(--height);
+    background-color: white;
+    width: 100%;
+    z-index: 12;
+    display: flex;
+    position: fixed;
+    text-wrap: nowrap;
+}
+
+.dataWrapper {
+    align-items: center;
+}
+
+.dataGroup {
+    margin: 0 20px;
+    margin-top: var(--height);
+    margin-bottom: 80px;
+}
+
+.flex-c {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+}
+
+.box-h {
+    display: flex;
+    background-color: orange;
+    width: auto;
+}
+
+.home {
+    height: var(--height);
+    width: var(--height);
+    background-color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab {
+    border-radius: 0 10px 10px 0;
+    box-shadow: 2px -2px 10px -2px black;
+    position: absolute;
+    font-weight: 1;
+    font-size: 14px;
+    left: -150px;
+    transition: left 0.5s ease;
+}
+
+.new-tab {
+    height: var(--height);
+    width: var(--height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    z-index: -2;
+    transition-delay: 0.2s;
+}
+
+.new-tab:hover {
+    background-color: lightgray;
+}
+
+.new-tab:hover, .fa-plus:hover {
+    cursor: pointer;
+}
+
+.default-tab {
+    height: var(--height);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightblue;
+    padding: 0 15px;
+    z-index: -1;
+    transition-delay: 0.1s;
+}
+
+.default-tab:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.tabWrapper {
+    display: flex;
 }
 
 @media only screen and (max-width: 600px) {

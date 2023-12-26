@@ -7,7 +7,6 @@ var spareTabData = {
 }
 var tabData = {
     totalTab: 0,
-    tab1: `${spareTabData.idt}:${spareTabData.data1}`
 }
 var co = {};
 
@@ -18,12 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             co = data
 
-            localStorage.setItem("DATA", JSON.stringify(tabData))
+            if (localStorage.getItem("DATA", JSON.stringify(tabData)) === null) {
+                cl("NANIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+                localStorage.setItem("DATA", JSON.stringify(tabData))
+            }
 
-            newTab()
+            newTab();
             notif(1, 1, 1, 1);
             loadData();
             
+            if (localStorage.getItem("DATA", JSON.stringify(tabData)) !== null) {
+                localStorage.setItem("DATA", JSON.stringify(tabData))
+            }
+
             var player = [];
             var index;
             var con = localStorage.getItem('con')
@@ -46,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // window.open('score-display.html', '_blank');
             // console.log("ULANG")
+            console.log(co)
         })
         .catch(error => console.error('Error:', error));
 
@@ -167,14 +174,17 @@ function inputing() {
 
                 } else {
                     spareTabData.streak[1] = 1;
-                    if (spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length - 1] == ";") {
+                    if (spareTabData[`data${co.noTab}`] && spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length - 1] == ";") {
                         spareTabData[`data${co.noTab}`] += spareTabData.streak[0]
                     } else {
                         spareTabData[`data${co.noTab}`] += "," + spareTabData.streak[0] 
                     }
                 }
                 cl(spareTabData)
-                localStorage.setItem(`data${co.noTab}`, spareTabData[`data${co.noTab}`])
+                if (spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length-1] !== ";" && spareTabData[`data${co.noTab}`] !== null) {
+                    cl(`ini woyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ${spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length-1]}`)
+                    localStorage.setItem(`data${co.noTab}`, spareTabData[`data${co.noTab}`])
+                }
             }
             console.log(spareTabData.streak)
             console.log(spareTabData[`data${co.noTab}`])
@@ -278,7 +288,7 @@ function newTab() {
         var tabId = document.getElementById(`dataTab${i}`);
         var tabWidth = tabId.clientWidth;
         widthData.push(tabWidth);
-        console.log(tabId, tabWidth, widthData);
+        // console.log(tabId, tabWidth, widthData);
     }
     var sum = widthData.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     
@@ -287,11 +297,13 @@ function newTab() {
     nt.style.zIndex = tabData.totalTab * -1 - 1
     nt.style.left = (sum - (tabData.totalTab + 1) * 7) + "px"
 
-    if (spareTabData[`data${tabData.totalTab}`] == null) {
+    
+    cl(isNaN(localStorage.getItem(`data${tabData.totalTab}`)))
+    if (localStorage.getItem(`data${tabData.totalTab}`) === null || localStorage.getItem(`data${tabData.totalTab}`).length == 0) {
+        console.log("WAIT WHAT " + localStorage.getItem(`data${tabData.totalTab}`))
         spareTabData[`data${tabData.totalTab}`] = `${tabData.totalTab};`
         localStorage.setItem(`data${tabData.totalTab}`, `${tabData.totalTab};`)
-    }
-    
+    } 
     if (tabData.totalTab > 1) {
         localStorage.setItem("DATA", JSON.stringify(tabData))
     }
@@ -299,71 +311,20 @@ function newTab() {
 
 function loadData() {
     onLoad = 1;
-
-
-
-    console.log('MUAHAAHAHHAHAHAAAAAAAAAA')
-
+    console.log(tabData)
+    
     var totalTabLs = JSON.parse(localStorage.getItem("DATA"))
-
+    console.log(tabData)
     score1 = 1;
     score2 = 1;
-    
+    console.log(totalTabLs.totalTab)
     for (i = 1; i <= totalTabLs.totalTab; i++) {
-        var rawData = `data${i}`;
-        var rawLsData = localStorage.getItem(rawData)
-        if (rawLsData !== null) {
-            var cookData = localStorage.getItem(rawData).slice(2).split(",");
-            console.log(cookData[0][0])
-            for (o = 0; o <= cookData.length-1; o++) {
-                var load = []
-                switch (cookData[o][0]) {
-                    case 'a':
-                        load.push(1);
-                        break;
-                    case 'b':
-                        load.push(2);
-                        break;
-                    case 'c':
-                        load.push(3);
-                        break;
-                    case 'd':
-                        load.push(4);
-                        break;
-                    default:
-                        load.push('');
-                }
-                
-                if (load[0] !== '') {
-                    var funcNotif = document.getElementById(`p${load[0]}b`).getAttribute("onclick").replace(/notif\(|\)/g, '').split(',').map(Number);
-                    console.log(funcNotif)
-                    if (cookData[o].length == 1) {
-                        co.notif = parseInt(funcNotif[1])
-                        co.teaming = parseInt(funcNotif[2])
-                        co.team = parseInt(funcNotif[3])
-                        co.noTab = parseInt(funcNotif[4])
-
-                        inputing()
-                    } else {
-                        for (p = 1; p <= cookData[o][1]; p++) {
-                            co.notif = parseInt(funcNotif[1])
-                            co.teaming = parseInt(funcNotif[2])
-                            co.team = parseInt(funcNotif[3])
-                            co.noTab = parseInt(funcNotif[4])
-
-                            inputing()
-                        }
-                    }
-                }
-            }
-        }
-        cl(3)
+        console.log(i)
+        console.log('MUAHAAHAHHAHAHAAAAAAAAAAk')
+        loadTab(i)
         if (i > 1) {
-            cl(1)
-            newTab()
-            cl(2)
+            newTab();
         }
-        cl(4)
     }
     onLoad = 0;
 }
@@ -374,6 +335,12 @@ function loadTab(tabIndex) {
     var rawData = `data${tabIndex}`;
     var rawLsData = localStorage.getItem(rawData);
     var dataParent = document.getElementById("dataContent")
+    var con = localStorage.getItem('con')
+
+    var loadVar = localStorage.getItem(`data${tabIndex}`)
+    spareTabData[`data${tabIndex}`] = loadVar
+    console.log(spareTabData)
+    localStorage.setItem("JSON-memoOtak-noTab", co.noTab)
 
     spareTabData.streak = ["-", 0];
     score1 = 1;
@@ -383,7 +350,7 @@ function loadTab(tabIndex) {
         dataParent.removeChild(dataParent.firstChild);
     }
 
-    for (i = 1; i <= 4; i++) {
+    for (i = 1; i <= con*2; i++) {
         var notifParam = document.getElementById(`p${i}b`)
         var notifOnClick = notifParam.getAttribute("onclick").replace(/notif\(|\)/g, '').split(',').map(Number);
 
@@ -391,8 +358,19 @@ function loadTab(tabIndex) {
     }
 
     if (rawLsData !== null) {
-        var cookData = localStorage.getItem(rawData).slice(2).split(",");
+        var cookData = rawLsData.slice(2).split(",");
+        var repeat;
         for (o = 0; o <= cookData.length-1; o++) {
+            console.log(cookData[0])
+            if (cookData[o].length == 1) {
+                repeat = 1
+            } else {
+                repeat = cookData[o].slice(1)
+            }
+        
+            console.log(repeat)
+            // console.log(o)
+            // console.log(cookData[0])
             var load = []
             switch (cookData[o][0]) {
                 case 'a':
@@ -422,7 +400,7 @@ function loadTab(tabIndex) {
 
                     inputing()
                 } else {
-                    for (p = 1; p <= cookData[o][1]; p++) {
+                    for (p = 1; p <= repeat; p++) {
                         co.notif = parseInt(funcNotif[1])
                         co.teaming = parseInt(funcNotif[2])
                         co.team = parseInt(funcNotif[3])
@@ -436,6 +414,7 @@ function loadTab(tabIndex) {
     } else {
         console.log("ya gmn ya tapi datanya blm ada")
     }
+
     onLoad = 0;
 }
 
@@ -468,6 +447,7 @@ function handleKeyPress(event) {
       if (hasil === "ya") {
         localStorage.clear()
         alert("Local Storage di hapus!");
+        window.location.href = '../index.html';
       } else {
         alert("Input tidak valid.");
       }

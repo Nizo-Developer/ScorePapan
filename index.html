@@ -418,10 +418,10 @@
             </div>
             <div class="menu-main" id="bsize" style="gap: 10px;">
                 <div class="menu-input">
-                    <input type="text" id="t1" placeholder="Username 1:">
-                    <input type="text" id="t2" placeholder="Username 2:">
-                    <input type="text" id="t3" placeholder="Username 3:">
-                    <input type="text" id="t4" placeholder="Username 4:">
+                    <input type="text" id="t1" placeholder="Username 1:" autocomplete="off">
+                    <input type="text" id="t2" placeholder="Username 2:" autocomplete="off">
+                    <input type="text" id="t3" placeholder="Username 3:" autocomplete="off">
+                    <input type="text" id="t4" placeholder="Username 4:" autocomplete="off">
                     <p id="t5" style="margin: 0; font-weight: 800; letter-spacing: 1px;">ENTER USERNAME FIRST!</p>
                 </div>
             </div>
@@ -439,7 +439,7 @@
     </footer>
     <script>
         var co;
-        
+        var focusing;
         
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -459,6 +459,8 @@
             window.addEventListener('resize', setFontSize);
             window.addEventListener('scroll', setTransparancy);
             window.addEventListener('resize', setSize)
+            window.addEventListener('keydown', handleKeyPress);
+            window.addEventListener('keydown', keyTrigger);
         });
 
         function setFontSize() {
@@ -665,6 +667,80 @@
                     }
                 }
                 t5.style.display = 'flex';
+            }
+        }
+
+        function keyTrigger(event) {
+
+            console.log(event)
+
+            function inputFocus() {
+                console.log(focusing)
+                var focusElement;
+
+                if (focusing == 0) {
+                    focusElement = document.getElementById("singDoub");
+                } else {
+                    focusElement = document.getElementById(`t${focusing}`);
+                }
+                
+                // focusElement.removeAttribute('readonly');
+                focusElement.focus();
+            }
+            if ((49 <= event.keyCode && event.keyCode <= 52) && "t" !== document.activeElement.id[0]) {
+                focusing = parseInt(event.key);
+                console.log(event.key)
+                console.log(event.keyCode)
+                setTimeout(inputFocus, 0);
+            } else if ((event.keyCode == 13 || event.keyCode == 33 || event.keyCode == 40) && focusing < 4) {
+                focusing++
+                setTimeout(inputFocus, 0);
+            } else if ((event.keyCode == 34 || event.keyCode == 38) && focusing > 0) {
+                focusing--
+                setTimeout(inputFocus, 0);
+            }
+
+            // document.getElementById(`t${focusing}`).addEventListener('blur', function() {
+            //   this.setAttribute('readonly', 'readonly');
+            // });
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //ALAM BAWAH (DEVELOPER TOOL)
+
+        function handleKeyPress(event) {
+            if (event.key === 'r') {
+              konfirmasi();
+            }
+          }
+
+          function konfirmasi() {
+            var hasil = prompt("Apakah Anda yakin ingin menghapus data Local Storage?");
+        
+            if (hasil !== null) {
+              hasil = hasil.toLowerCase();
+              if (hasil === "ya") {
+                localStorage.clear()
+                alert("Local Storage di hapus!");
+              } else {
+                alert("Input tidak valid.");
+              }
+            } else {
+              alert("Anda telah membatalkan.");
             }
         }
     </script>
