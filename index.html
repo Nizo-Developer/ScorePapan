@@ -562,7 +562,7 @@
             var t = [t1, t2, t3, t4];
 
             var link = document.getElementById('link');
-
+            console.log(checker.checked + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
                 if (checker.checked) {
                     console.log("duo")
@@ -687,7 +687,7 @@
                 // focusElement.removeAttribute('readonly');
                 focusElement.focus();
             }
-            if ((49 <= event.keyCode && event.keyCode <= 52) && "t" !== document.activeElement.id[0]) {
+            if ((49 <= event.keyCode && event.keyCode <= 52) && ("t" !== document.activeElement.id[0] || "s" !== document.activeElement.id[0])) {
                 focusing = parseInt(event.key);
                 console.log(event.key)
                 console.log(event.keyCode)
@@ -698,6 +698,16 @@
             } else if ((event.keyCode == 34 || event.keyCode == 38) && focusing > 0) {
                 focusing--
                 setTimeout(inputFocus, 0);
+            } else if (event.keyCode == 220) {
+                var sd = document.getElementById("singDoub");
+                
+
+                if (sd.checked == false) {
+                    sd.checked = true;
+                } else {
+                    sd.checked = false;
+                }
+                soloDuo()
             }
 
             // document.getElementById(`t${focusing}`).addEventListener('blur', function() {
