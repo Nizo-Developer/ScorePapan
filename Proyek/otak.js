@@ -17,16 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             co = data
 
+            var baF = 0;
             if (localStorage.getItem("DATA", JSON.stringify(tabData)) === null) {
                 cl("NANIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
                 localStorage.setItem("DATA", JSON.stringify(tabData))
+                baF = 1;
             }
 
+            console.log(localStorage.getItem("DATA", JSON.stringify(tabData)))
+
+            setSize();
             newTab();
             notif(1, 1, 1, 1);
             loadData();
+            console.log(localStorage.getItem("DATA", JSON.stringify(tabData)))
             
-            if (localStorage.getItem("DATA", JSON.stringify(tabData)) !== null) {
+            if (localStorage.getItem("DATA", JSON.stringify(tabData)) !== null && baF == 0) {
                 localStorage.setItem("DATA", JSON.stringify(tabData))
             }
 
@@ -57,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
 
     window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('resize', setSize)
 });
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
@@ -64,7 +71,45 @@ function cl(conlog) {
     console.log(conlog)
 }
 
+function setSize() {
+    var object = document.getElementById('menu')
+    var wobject = parseFloat(window.getComputedStyle(object).getPropertyValue("width"));
+
+    var lebarLayar = window.innerWidth;
+
+    if ((lebarLayar * 0.3) >= 300) {
+        object.style.width = lebarLayar * 0.3 + 'px';
+    } else {
+        object.style.width = 300 + 'px'
+    }
+    
+    
+    console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
+    console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("height")));
+};
+
+function openMenu() {
+    var menu = document.getElementById('menu');
+    var menuBg = document.getElementById('menuBg');
+    var body = document.getElementById('body')
+    body.style.overflowY = 'hidden';
+    menu.style.display = 'flex';
+    menuBg.style.display = 'flex';
+}
+
+function menuClose() {
+    var close = document.getElementById('menu');
+    var closeBg = document.getElementById('menuBg');
+    var body = document.getElementById('body');
+
+    body.style.overflowY = 'visible';
+    close.style.display = "none";
+    closeBg.style.display = "none";
+
+};
+
 function inputing() {
+    
     //Membuat Baris (tr)
     var baris = document.createElement("div");
 
@@ -90,12 +135,19 @@ function inputing() {
     var numBox = document.createElement("div")
     numBox.setAttribute("class", "num")
     baris.appendChild(numBox)
+    numBox.innerHTML = (score1 + score2) - 2;
 
     //Looping 4x untuk membuat 4 kolom (td)
     var nullScore = 0;
     for (var i = 1; i <= p; i++) {
         var kolom = document.createElement("div")
         kolom.setAttribute("class", "box-v")
+        if (numBox.innerHTML%2 == 1) {
+            colorBg = '#707070'
+        } else {
+            colorBg = '#4d4d4d'
+        }
+        kolom.style.backgroundColor = colorBg;
         //Menambahkan si kolom (tr) ke baris (td)
         //Sistemnya kyk variabel yang belum di print
         baris.appendChild(kolom)
@@ -151,7 +203,7 @@ function inputing() {
                     spareTabData.streak[0] = '';
             }
 
-            if (spareTabData.streak[0] !== "-" && onLoad !== 1) {
+            if (spareTabData.streak[0] !== "-" && onLoad < 1) {
                 // if (spareTabData.streak[1] <= 1) {
                 //     var addData = ""
                 // } else {
@@ -191,7 +243,6 @@ function inputing() {
         }
     }
 
-    numBox.innerHTML = (score1 + score2) - 2;
 
     var dc = document.getElementById("dataContent");
     //Kalau ini anggep aja print karna kita ambil data dari element dari id yang ada di tag html di atas scroll cari komentar "yang ini"
@@ -268,14 +319,21 @@ function setScore() {
 };
 
 function newTab() {
+    var hexColors = ['#ffa500', '#ff0000', '#ffff00', '#228b22', '#800080', '#d2691e', '#ffc0cb', '#808080', '#87ceeb', '#ffa500'];
     var widthData = [35];
+    var colorBg;
     
+    // Contoh penggunaan: mendapatkan angka bulat acak antara 1 dan 10
+    var randColor = hexColors[randInt(0, hexColors.length-1)];
+    console.log(randColor)
     
     tabData.totalTab++
     var tab = document.createElement("div")
     tab.setAttribute("class", "default-tab tab")
     tab.setAttribute("id", `dataTab${tabData.totalTab}`)
     tab.setAttribute("onclick", `loadTab(${tabData.totalTab})`)
+    
+    
     
     if (tabData.totalTab == 1) {
         tab.innerHTML = "ScorePapan Badminton"
@@ -292,45 +350,56 @@ function newTab() {
     }
     var sum = widthData.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     
-    tab.setAttribute("style", `z-index: ${tabData.totalTab * -1}; left: ${sum - widthData[widthData.length - 1] - (tabData.totalTab) * 7}px;`)
+    if (tabData.totalTab%2 == 1) {
+        colorBg = 'lightgray'
+    } else {
+        colorBg = 'gray'
+    }
+
+    tab.setAttribute("style", `z-index: ${tabData.totalTab * -1}; left: ${sum - widthData[widthData.length - 1] - (tabData.totalTab) * 7}px; background-color: ${colorBg};`)
     var nt = document.getElementById("nt")
     nt.style.zIndex = tabData.totalTab * -1 - 1
     nt.style.left = (sum - (tabData.totalTab + 1) * 7) + "px"
 
-    
+    console.log(localStorage.getItem("DATA"))
     cl(isNaN(localStorage.getItem(`data${tabData.totalTab}`)))
     if (localStorage.getItem(`data${tabData.totalTab}`) === null || localStorage.getItem(`data${tabData.totalTab}`).length == 0) {
         console.log("WAIT WHAT " + localStorage.getItem(`data${tabData.totalTab}`))
         spareTabData[`data${tabData.totalTab}`] = `${tabData.totalTab};`
         localStorage.setItem(`data${tabData.totalTab}`, `${tabData.totalTab};`)
     } 
-    if (tabData.totalTab > 1) {
+    if (tabData.totalTab > 1 && onLoad == 0) {
+        console.log(localStorage.getItem("DATA"))
         localStorage.setItem("DATA", JSON.stringify(tabData))
+        console.log(localStorage.getItem("DATA"))
     }
+    console.log(localStorage.getItem("DATA"))
 }
 
 function loadData() {
-    onLoad = 1;
+    onLoad = 2;
     console.log(tabData)
     
     var totalTabLs = JSON.parse(localStorage.getItem("DATA"))
-    console.log(tabData)
+    var openTab = localStorage.getItem("JSON-memoOtak-noTab")
+    console.log(totalTabLs)
     score1 = 1;
     score2 = 1;
     console.log(totalTabLs.totalTab)
-    for (i = 1; i <= totalTabLs.totalTab; i++) {
+    for (i = 2; i <= totalTabLs.totalTab; i++) {
         console.log(i)
+        console.log(totalTabLs.totalTab)
         console.log('MUAHAAHAHHAHAHAAAAAAAAAAk')
-        loadTab(i)
-        if (i > 1) {
-            newTab();
-        }
+        newTab();
     }
+    loadTab(openTab)
     onLoad = 0;
 }
 
 function loadTab(tabIndex) {
-    onLoad = 1;
+    if (onLoad !== 2) {
+        onLoad = 1;
+    }
     co.noTab = tabIndex
     var rawData = `data${tabIndex}`;
     var rawLsData = localStorage.getItem(rawData);
@@ -340,9 +409,11 @@ function loadTab(tabIndex) {
     var loadVar = localStorage.getItem(`data${tabIndex}`)
     spareTabData[`data${tabIndex}`] = loadVar
     console.log(spareTabData)
-    localStorage.setItem("JSON-memoOtak-noTab", co.noTab)
+    if (onLoad !== 2) {
+        localStorage.setItem("JSON-memoOtak-noTab", co.noTab)
+    }
+    
 
-    spareTabData.streak = ["-", 0];
     score1 = 1;
     score2 = 1;
 
@@ -361,6 +432,7 @@ function loadTab(tabIndex) {
         var cookData = rawLsData.slice(2).split(",");
         var repeat;
         for (o = 0; o <= cookData.length-1; o++) {
+            spareTabData.streak = ["-", 1];
             console.log(cookData[0])
             if (cookData[o].length == 1) {
                 repeat = 1
@@ -414,9 +486,23 @@ function loadTab(tabIndex) {
     } else {
         console.log("ya gmn ya tapi datanya blm ada")
     }
-
-    onLoad = 0;
+    if (onLoad !== 2) {
+        onLoad = 0;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -454,4 +540,8 @@ function handleKeyPress(event) {
     } else {
       alert("Anda telah membatalkan.");
     }
+}
+
+function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

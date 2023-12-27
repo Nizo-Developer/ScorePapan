@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="design.css">
     <title>ScorePapan Double</title>
 </head>
-<body>
+<body id="body">
     <div class="navigation">
         <div class="home tab" style="left: 0;">
             <i class="fa-solid fa-house fa-1xs" style="color: white;"></i>
@@ -15,7 +15,7 @@
         <div class="tabWrapper" id="tabWr">
 
         </div>
-        <div class="new-tab tab" id="nt" onclick="newTab()">
+        <div class="new-tab tab" id="nt" onclick="openMenu()">
             <i class="fa-solid fa-plus fa-1xs" style="color: white;"></i>
         </div>
     </div>
@@ -68,6 +68,30 @@
         <div class="flex" style="gap: 5px;">
             <a href="#bottom"><button class="btn btn-n" onclick="notif(2)">OKE</button></a>
             <a href="#bottom"><button class="btn btn-n" onclick="notif(0)">CANCEL</button></a>
+        </div>
+    </div>
+    <div id="menuBg" class="menu-bg"></div>
+    <div id="menu" class="menu">
+        <div class="menu-wrapping">
+            <div class="menu-head">
+                <div class="solo-duo">
+                    
+                </div>
+                <div class="menu-close" onclick="menuClose()"></div>
+            </div>
+            <div class="menu-main" id="bsize" style="gap: 10px;">
+                <div class="menu-input">
+                    
+                    <p id="t5" style="margin: 0; font-weight: 800; letter-spacing: 1px;">ENTER USERNAME FIRST!</p>
+                </div>
+            </div>
+            <div class="menu-foot">
+                <div class="menu-btn">
+                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px; text-wrap: nowrap;" onclick="getValue()">
+                        <a onclick="getValue()" id="link"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create New Tab</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
