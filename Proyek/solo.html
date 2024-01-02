@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="design.css">
     <title>ScorePapan Single</title>
 </head>
-<body>
+<body id="body">
     <div class="navigation">
         <div class="home tab" style="left: 0;">
             <i class="fa-solid fa-house fa-1xs" style="color: white;"></i>
@@ -15,7 +15,7 @@
         <div class="tabWrapper" id="tabWr">
 
         </div>
-        <div class="new-tab tab" id="nt" onclick="newTab()">
+        <div class="new-tab tab" id="nt" onclick="openMenu()">
             <i class="fa-solid fa-plus fa-1xs" style="color: white;"></i>
         </div>
     </div>
@@ -45,6 +45,26 @@
         <div class="flex" style="gap: 5px;">
             <a href="#bottom"><button class="btn btn-n" onclick="notif(2)">OKE</button></a>
             <a href="#bottom"><button class="btn btn-n" onclick="notif(0)">CANCEL</button></a>
+        </div>
+    </div>
+    <div id="menuBg" class="menu-bg"></div>
+    <div id="menu" class="menu">
+        <div class="menu-wrapping">
+            <div class="menu-head">
+                <div class="menu-close" onclick="menuClose()"><i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="menu-input">
+                    <input type="text" id="tabName" placeholder="Tab Name:" autocomplete="off">
+                </div>
+                <div class="menu-enter" onclick="menuEnter()"><i class="fa-solid fa-circle-plus"></i></div>
+            </div>
+            <div class="menu-main" id="menuMain" style="gap: 10px;">
+                ADVANCE SETTING
+            </div>
+            <div class="menu-foot" onclick="advSetting()">
+                <div class="menu-btn">
+                    <i class="fa-solid fa-angle-down" id="arrow"></i>
+                </div>
+            </div>
         </div>
     </div>
     <script>

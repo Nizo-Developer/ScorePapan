@@ -2,12 +2,16 @@ var score1 = 1;
 var score2 = 1;
 var onLoad = 0;
 var streak = 0;
+var adv = 0;
+var fitHeight;
 var spareTabData = {
     streak: ["-", 0]
 }
 var tabData = {
     totalTab: 0,
+    tabName: {}
 }
+var dataList = {}
 var co = {};
 
 document.addEventListener('DOMContentLoaded', function() {    
@@ -24,8 +28,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 baF = 1;
             }
 
+            if (localStorage.getItem('dataList', JSON.stringify(dataList)) === null) {
+                localStorage.setItem('dataList', JSON.stringify(dataList));
+                baF = 1;
+            }
+
             console.log(localStorage.getItem("DATA", JSON.stringify(tabData)))
 
+            menuClose();
             setSize();
             newTab();
             notif(1, 1, 1, 1);
@@ -34,6 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (localStorage.getItem("DATA", JSON.stringify(tabData)) !== null && baF == 0) {
                 localStorage.setItem("DATA", JSON.stringify(tabData))
+            }
+
+            if (localStorage.getItem('dataList', JSON.stringify(dataList)) === null && baF == 0) {
+                localStorage.setItem('dataList', JSON.stringify(dataList));
+
             }
 
             var player = [];
@@ -55,16 +70,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            
+        })
+                      
             // window.open('score-display.html', '_blank');
             // console.log("ULANG")
-            console.log(co)
-        })
+            // console.log(co)
         .catch(error => console.error('Error:', error));
+        
+        window.addEventListener('keydown', handleKeyPress);
+        window.addEventListener('resize', setSize)
+})
 
-    window.addEventListener('keydown', handleKeyPress);
-    window.addEventListener('resize', setSize)
-});
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
 function cl(conlog) {
@@ -74,39 +90,91 @@ function cl(conlog) {
 function setSize() {
     var object = document.getElementById('menu')
     var wobject = parseFloat(window.getComputedStyle(object).getPropertyValue("width"));
+    var iobject = document.getElementById("tabName");
 
     var lebarLayar = window.innerWidth;
 
-    if ((lebarLayar * 0.3) >= 300) {
-        object.style.width = lebarLayar * 0.3 + 'px';
+    if ((lebarLayar * 0.4) >= 300) {
+        object.style.width = lebarLayar * 0.4 + 'px';
     } else {
         object.style.width = 300 + 'px'
     }
+
+    iobject.style.width = lebarLayar * 0.2 + 'px';
     
-    
+    console.log(parseFloat(window.getComputedStyle(iobject).getPropertyValue("width")));
     console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("width")));
-    console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("height")));
+    // console.log(parseFloat(window.getComputedStyle(object).getPropertyValue("height")));
 };
 
 function openMenu() {
     var menu = document.getElementById('menu');
     var menuBg = document.getElementById('menuBg');
-    var body = document.getElementById('body')
+    var body = document.getElementById('body');
+    
     body.style.overflowY = 'hidden';
-    menu.style.display = 'flex';
-    menuBg.style.display = 'flex';
+    menu.style.opacity = '1';
+    menuBg.style.opacity = '1';
+    menuBg.style.display = "flex";
+    
+    if (adv == 1) {
+        arrow.className += ' fa-flip-vertical';
+        menuMain.style.height = "400px";
+        menu.style.top = '300px';
+    } else {
+        menu.style.top = '100px';
+    }
 }
 
 function menuClose() {
     var close = document.getElementById('menu');
     var closeBg = document.getElementById('menuBg');
     var body = document.getElementById('body');
-
+    
     body.style.overflowY = 'visible';
-    close.style.display = "none";
+    menu.style.top = '-100px';
+    close.style.opacity = "0";
+    closeBg.style.opacity = "0";
     closeBg.style.display = "none";
-
 };
+
+function menuEnter() {
+    var nameTabValue = document.getElementById('tabName').value;
+    var nameTab = document.getElementById('tabName');
+    
+    if (nameTabValue) {
+        newTab(nameTabValue)
+    }
+    menuClose();
+    nameTab.innerHTML = '';
+}
+
+function advSetting() {
+    var arrow = document.getElementById("arrow");
+    var menuMain = document.getElementById("menuMain");
+    var menu = document.getElementById("menu")
+    console.log(!menuMain.style.height)
+    if (!menuMain.style.height) {
+        fitHeight = menuMain.clientHeight;
+        console.log(fitHeight)
+        menuMain.style.height = fitHeight + 'px';
+        setTimeout(advSetting, 0)
+    } else {
+        if (adv == 0) {
+            arrow.className += ' fa-flip-vertical';
+            menuMain.style.height = "400px";
+            menu.style.top = '300px';
+            adv = 1;
+        } else {
+            arrow.classList.remove('fa-flip-vertical');
+            menuMain.style.height = fitHeight + 'px';
+            menu.style.top = '100px';
+            adv = 0;
+        }
+    }
+    
+
+}
 
 function inputing() {
     
@@ -135,7 +203,7 @@ function inputing() {
     var numBox = document.createElement("div")
     numBox.setAttribute("class", "num")
     baris.appendChild(numBox)
-    numBox.innerHTML = (score1 + score2) - 2;
+    numBox.innerHTML = (score1 + score2) - 1;
 
     //Looping 4x untuk membuat 4 kolom (td)
     var nullScore = 0;
@@ -211,35 +279,57 @@ function inputing() {
                 // }
 
                 if (streak == 1) {
-                    var localData = localStorage.getItem(`data${co.noTab}`);
-                    var lastDigit = localData.charAt(localData.length - 1)
+                    var localData = JSON.parse(localStorage.getItem('dataList'));
+                    var lastDigit = localData[`data${co.noTab}`].charAt(localData[`data${co.noTab}`].length - 1)
                     if (!isNaN(lastDigit)) {
                         cl("lah")
-                        var addPoint = localData.replace(/(\D)(\d+)$/, function(match, id, num) {
+                        var addPoint = localData[`data${co.noTab}`].replace(/(\D)(\d+)$/, function(match, id, num) {
                             cl(`mrk ${match} idi ${id} num ${num}`)
                             return id + spareTabData.streak[1];
                         });
-                        spareTabData[`data${co.noTab}`] = addPoint
+                        dataList[`data${co.noTab}`] = addPoint
                     } else {
-                        spareTabData[`data${co.noTab}`] += spareTabData.streak[1]
+                        dataList[`data${co.noTab}`] += spareTabData.streak[1]
                     }
 
                 } else {
                     spareTabData.streak[1] = 1;
-                    if (spareTabData[`data${co.noTab}`] && spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length - 1] == ";") {
-                        spareTabData[`data${co.noTab}`] += spareTabData.streak[0]
+                    if (dataList[`data${co.noTab}`] && dataList[`data${co.noTab}`][dataList[`data${co.noTab}`].length - 1] == ";") {
+                        dataList[`data${co.noTab}`] += spareTabData.streak[0]
                     } else {
-                        spareTabData[`data${co.noTab}`] += "," + spareTabData.streak[0] 
+                        dataList[`data${co.noTab}`] += "," + spareTabData.streak[0]
                     }
                 }
                 cl(spareTabData)
-                if (spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length-1] !== ";" && spareTabData[`data${co.noTab}`] !== null) {
-                    cl(`ini woyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ${spareTabData[`data${co.noTab}`][spareTabData[`data${co.noTab}`].length-1]}`)
-                    localStorage.setItem(`data${co.noTab}`, spareTabData[`data${co.noTab}`])
+                if (dataList[`data${co.noTab}`][dataList[`data${co.noTab}`].length-1] !== ";" && dataList[`data${co.noTab}`] !== null) {
+                    cl(`ini woyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ${dataList[`data${co.noTab}`][dataList[`data${co.noTab}`].length-1]}`)
+
+                    const storedData = JSON.parse(localStorage.getItem('dataList')) || {};
+                    storedData[`data${co.noTab}`] = dataList[`data${co.noTab}`]; 
+                    localStorage.setItem('dataList', JSON.stringify(storedData));
                 }
             }
             console.log(spareTabData.streak)
-            console.log(spareTabData[`data${co.noTab}`])
+            console.log(dataList[`data${co.noTab}`])
+            console.log(dataList)
+            console.log(JSON.parse(localStorage.getItem('dataList')))
+        }
+
+        var dataLs = JSON.parse(localStorage.getItem("DATA"));
+        var onTab = localStorage.getItem('JSON-memoOtak-noTab');
+
+        console.log(dataLs.totalTab)
+        console.log(onTab)
+
+        if (dataLs.totalTab == onTab) {
+            if ((score1 > 21 && score1 - score2 >= 2) || score1 == 31) {
+                win(1)
+            } else if ((score2 > 21 && score2 - score1 >= 2) || score2 == 31) {
+                win(2)
+            }
+        } else {
+            var btnContainer = document.getElementById('btnContainer')
+            btnContainer.style.display = 'flex';
         }
     }
 
@@ -312,13 +402,14 @@ function notif(con, p, teaming, team, noTab) {
     }
 };
 
-function setScore() {
-    var sc1 = document.getElementById('score1');
-    var sc2 = document.getElementById('score2');
-    sc1
+function win(who) {
+    var btnContainer = document.getElementById('btnContainer')
+    btnContainer.style.display = 'none';
+
+    openMenu()
 };
 
-function newTab() {
+function newTab(nama) {
     var hexColors = ['#ffa500', '#ff0000', '#ffff00', '#228b22', '#800080', '#d2691e', '#ffc0cb', '#808080', '#87ceeb', '#ffa500'];
     var widthData = [35];
     var colorBg;
@@ -328,16 +419,18 @@ function newTab() {
     console.log(randColor)
     
     tabData.totalTab++
+
+    if (tabData.totalTab == 1 && tabData.tabName[`name1`] == null) {
+        nama = "ScorePapan Badminton"
+    };
+
+    tabData.tabName[`name${tabData.totalTab}`] = nama;
     var tab = document.createElement("div")
     tab.setAttribute("class", "default-tab tab")
     tab.setAttribute("id", `dataTab${tabData.totalTab}`)
     tab.setAttribute("onclick", `loadTab(${tabData.totalTab})`)
+    tab.innerHTML = nama;
     
-    
-    
-    if (tabData.totalTab == 1) {
-        tab.innerHTML = "ScorePapan Badminton"
-    }
     
     var tabWrapper = document.getElementById("tabWr")
     tabWrapper.appendChild(tab)
@@ -362,11 +455,16 @@ function newTab() {
     nt.style.left = (sum - (tabData.totalTab + 1) * 7) + "px"
 
     console.log(localStorage.getItem("DATA"))
-    cl(isNaN(localStorage.getItem(`data${tabData.totalTab}`)))
-    if (localStorage.getItem(`data${tabData.totalTab}`) === null || localStorage.getItem(`data${tabData.totalTab}`).length == 0) {
-        console.log("WAIT WHAT " + localStorage.getItem(`data${tabData.totalTab}`))
-        spareTabData[`data${tabData.totalTab}`] = `${tabData.totalTab};`
-        localStorage.setItem(`data${tabData.totalTab}`, `${tabData.totalTab};`)
+    var listIsi = JSON.parse(localStorage.getItem('dataList'))
+    console.log(isNaN(listIsi[`data${tabData.totalTab}`]))
+    console.log(listIsi[`data${tabData.totalTab}`])
+    if (listIsi[`data${tabData.totalTab}`] === undefined || listIsi[`data${tabData.totalTab}`] === null || (isNaN(listIsi[`data${tabData.totalTab}`]) && listIsi.length == 2) || (listIsi[`data${tabData.totalTab}`].length == 0)) {
+        console.log("WAIT WHAT " + listIsi[`data${tabData.totalTab}`])
+        dataList[`data${tabData.totalTab}`] = `${tabData.totalTab};`
+
+        const storedData = JSON.parse(localStorage.getItem('dataList')) || {};
+        storedData[`data${tabData.totalTab}`] = `${tabData.totalTab};`; 
+        localStorage.setItem('dataList', JSON.stringify(storedData));
     } 
     if (tabData.totalTab > 1 && onLoad == 0) {
         console.log(localStorage.getItem("DATA"))
@@ -385,12 +483,16 @@ function loadData() {
     console.log(totalTabLs)
     score1 = 1;
     score2 = 1;
-    console.log(totalTabLs.totalTab)
+    console.log(totalTabLs.tabName[`name1`])
     for (i = 2; i <= totalTabLs.totalTab; i++) {
         console.log(i)
         console.log(totalTabLs.totalTab)
         console.log('MUAHAAHAHHAHAHAAAAAAAAAAk')
-        newTab();
+        newTab(totalTabLs.tabName[`name${i}`]);
+    }
+    console.log(openTab)
+    if (openTab === null) {
+        openTab = 1;
     }
     loadTab(openTab)
     onLoad = 0;
@@ -402,17 +504,16 @@ function loadTab(tabIndex) {
     }
     co.noTab = tabIndex
     var rawData = `data${tabIndex}`;
-    var rawLsData = localStorage.getItem(rawData);
+    var rawLsData = JSON.parse(localStorage.getItem('dataList'));
     var dataParent = document.getElementById("dataContent")
     var con = localStorage.getItem('con')
 
-    var loadVar = localStorage.getItem(`data${tabIndex}`)
-    spareTabData[`data${tabIndex}`] = loadVar
-    console.log(spareTabData)
+    var loadVar = JSON.parse(localStorage.getItem('dataList'))
+    dataList[`data${tabIndex}`] = loadVar[`data${tabIndex}`]
+    console.log(co.noTab)
     if (onLoad !== 2) {
         localStorage.setItem("JSON-memoOtak-noTab", co.noTab)
     }
-    
 
     score1 = 1;
     score2 = 1;
@@ -428,8 +529,8 @@ function loadTab(tabIndex) {
         notifParam.setAttribute("onclick", `notif(${notifOnClick[0]}, ${notifOnClick[1]}, ${notifOnClick[2]}, ${notifOnClick[3]}, ${co.noTab})`)
     }
 
-    if (rawLsData !== null) {
-        var cookData = rawLsData.slice(2).split(",");
+    if (rawLsData[rawData] !== null) {
+        var cookData = rawLsData[rawData].slice(2).split(",");
         var repeat;
         for (o = 0; o <= cookData.length-1; o++) {
             spareTabData.streak = ["-", 1];

@@ -52,7 +52,7 @@
         </div>
         <hr id="bottom">
     </div> -->
-    <div class="btn-container">
+    <div class="btn-container" id="btnContainer">
         <a href="#bottom"><button class="btn sub" id="p1b" onclick="notif(1, 1, 1, 2, 1)">player1</button></a>
         <a href="#bottom"><button class="btn sub" id="p2b" onclick="notif(1, 2, 1, 2, 1)">player2</button></a>
         <a href="#bottom"><button class="btn sub" id="p3b" onclick="notif(1, 3, 2, 2, 1)">player3</button></a>
@@ -74,22 +74,18 @@
     <div id="menu" class="menu">
         <div class="menu-wrapping">
             <div class="menu-head">
-                <div class="solo-duo">
-                    
-                </div>
-                <div class="menu-close" onclick="menuClose()"></div>
-            </div>
-            <div class="menu-main" id="bsize" style="gap: 10px;">
+                <div class="menu-close" onclick="menuClose()"><i class="fa-solid fa-circle-xmark"></i></div>
                 <div class="menu-input">
-                    
-                    <p id="t5" style="margin: 0; font-weight: 800; letter-spacing: 1px;">ENTER USERNAME FIRST!</p>
+                    <input type="text" id="tabName" placeholder="Tab Name:" autocomplete="off">
                 </div>
+                <div class="menu-enter" onclick="menuEnter()"><i class="fa-solid fa-circle-plus"></i></div>
             </div>
-            <div class="menu-foot">
+            <div class="menu-main" id="menuMain" style="gap: 10px;">
+                ADVANCE SETTING
+            </div>
+            <div class="menu-foot" onclick="advSetting()">
                 <div class="menu-btn">
-                    <div class="btn btn-body-s flex" id="dis" style="width: fit-content; padding: 5px; text-wrap: nowrap;" onclick="getValue()">
-                        <a onclick="getValue()" id="link"><i class="fa-solid fa-circle-plus" style="margin-right: 10px;"></i> Create New Tab</a>
-                    </div>
+                    <i class="fa-solid fa-angle-down" id="arrow"></i>
                 </div>
             </div>
         </div>
@@ -115,5 +111,46 @@
         
     </script>
     <script src="otak.js"></script>
+    <script>
+        // CODE SERVER DARI CHAT GPT    
+        // import http from 'http';
+        // import fs from 'fs';
+        // import path from 'path';
+        // const server = http.createServer((req, res) => {
+        //   if (req.url === '/') {
+        //     // Mengirimkan halaman HTML sebagai respon
+        //     fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
+        //       if (err) {
+        //         res.writeHead(500);
+        //         res.end('Error loading index.html');
+        //       } else {
+        //         res.writeHead(200, { 'Content-Type': 'text/html' });
+        //         res.end(data);
+        //       }
+        //     });
+        //   } else if (req.url === '/updates') {
+        //     // Membuka koneksi EventSource untuk pembaruan
+        //     res.writeHead(200, {
+        //       'Content-Type': 'text/event-stream',
+        //       'Cache-Control': 'no-cache',
+        //       'Connection': 'keep-alive'
+        //     });
+        
+        //     // Kirim pembaruan secara periodik
+        //     const intervalId = setInterval(() => {
+        //       const updateData = JSON.stringify({ message: 'Update from server' });
+        //       res.write(`data: ${updateData}\n\n`);
+        //     }, 5000); // Setiap 5 detik
+        
+        //     // Menutup koneksi jika klien memutuskan
+        //     req.on('close', () => {
+        //       clearInterval(intervalId);
+        //     });
+        //   }
+        // });
+        // server.listen(5500, () => {
+        //     console.log('Server listening on port 5500');
+        // });
+    </script>
 </body>
 </html>

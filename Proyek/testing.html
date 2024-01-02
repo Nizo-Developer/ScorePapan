@@ -3,40 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Activate Input on Keyboard Event</title>
+  <style>
+    #menuMain {
+      max-height: fit-content;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    #menuMain.expanded {
+      max-height: 400px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Elemen input yang akan diaktifkan -->
-<input type="text" id="dynamicInput" readonly>
+<button onclick="advSetting()">Toggle Menu</button>
+<div id="menuMain">Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</div>
 
 <script>
-// Fungsi untuk mengaktifkan elemen input
-function activateInput() {
-  // Ambil elemen input
-  var inputElement = document.getElementById('dynamicInput');
+  function advSetting() {
+    var menuMain = document.getElementById("menuMain");
 
-  // Hapus atribut readonly agar elemen input dapat diubah
-  inputElement.removeAttribute('readonly');
-
-  // Fokuskan elemen input
-  inputElement.focus();
-}
-
-// Tambahkan event listener untuk mendengarkan saat tombol spasi pada keyboard ditekan
-document.addEventListener('keydown', function(event) {
-  // Cek jika tombol spasi (32) ditekan
-  if (event.keyCode === 32) {
-    // Panggil fungsi activateInput untuk mengaktifkan elemen input
-    setTimeout(activateInput, 0);
+    if (!menuMain.classList.contains('expanded')) {
+      // Ambil tinggi kontennya secara dinamis
+      var contentHeight = menuMain.scrollHeight + "px";
+      // Atur max-height ke tinggi konten
+      menuMain.style.maxHeight = contentHeight;
+      // Tambahkan kelas expanded
+      menuMain.classList.add('expanded');
+    } else {
+      // Atur max-height ke fit-content
+      menuMain.style.maxHeight = "fit-content";
+      // Hapus kelas expanded
+      menuMain.classList.remove('expanded');
+    }
   }
-});
-
-// Tambahkan event listener untuk mendengarkan saat elemen input kehilangan fokus
-document.getElementById('dynamicInput').addEventListener('blur', function() {
-  // Tambahkan kembali atribut readonly saat elemen input kehilangan fokus
-  this.setAttribute('readonly', 'readonly');
-});
 </script>
 
 </body>

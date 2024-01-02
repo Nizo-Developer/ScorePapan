@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScorePapan Display</title>
     <style>
+        * {
+            color: white;
+        }
         body {
-            background-color: rgb(125, 125, 219);
+            background-color: black;
             margin: 0;
         }
 
@@ -19,15 +22,15 @@
             display: flex;
         }
         .boxSub {
-            height: 95%;
-            width: 95%;
+            height: 100%;
+            width: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #fff;
-            border-radius: 5px;
-            border: 1px solid black;
+            background-color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 1000;
         }
         .boxWrap {
             height: 100%;
@@ -35,6 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0;
         }
 
         .flex {
@@ -55,15 +59,23 @@
             height: 50%;
             width: 100%;
         }
+
+        #score1, #score2 {
+            font-size: 300px;
+        }
+
+        #team1, #team2 {
+            font-size: 70px;
+        }
     </style>
 </head>
 <body>
     <div class="top-wrapper flex" id="tp">
         <div class="box flex-v" id="team1">
-            <div class="boxSub"></div>
+            <div class="boxSub">TEAM 1</div>
         </div>
         <div class="box flex-v" id="team2">
-            <div class="boxSub"></div>
+            <div class="boxSub">TEAM 2</div>
         </div>
     </div>
     <div class="bot-wrapper flex" id="bt">
@@ -73,11 +85,11 @@
         
         <div class="box flex-v">
             <div class="boxWrap">
-                <div class="boxSub">
-                    
+                <div class="boxSub" id="win1">
+                    a
                 </div>
-                <div class="boxSub">
-                    
+                <div class="boxSub" id="win2">
+                    a
                 </div>
             </div>
             <div class="boxSub">
@@ -89,10 +101,30 @@
         </div>
     </div>
 
-    <script src="otak-experimental.js"></script>
     <script>
+
+        // CODE CLIENT<SERVER
+        // const eventSource = new EventSource('/updates');
+
+        // eventSource.addEventListener('message', (event) => {
+        //   // Handle pembaruan dari server
+        //   const updateData = JSON.parse(event.data);
+        //   console.log('Received update:', updateData);
+        // });
+
+        // eventSource.addEventListener('error', (error) => {
+        //   console.error('EventSource error:', error);
+        // });
+
         document.addEventListener('DOMContentLoaded', function() {
             tingginya();
+            getData();
+
+            setTimeout(() => {
+                // Redirect to the desired URL
+                window.location.href = 'score-display.html';
+            }, 5000);
+
             
             window.addEventListener('resize', tingginya);
         });
@@ -100,12 +132,116 @@
         function tingginya() {
             var top = document.getElementById('tp');
             var bot = document.getElementById('bt');
-
+            var team1Size = document.getElementById('team1');
+            var team2Size = document.getElementById('team2');
+            var sc1Size = document.getElementById('score1');
+            var sc2Size = document.getElementById('score2');
+            
             var tinggiLayar = window.innerHeight;
+            var lebarLayar = window.innerWidth;
                 
-            top.style.height = tinggiLayar * 0.2 + 'px';
-            bot.style.height = tinggiLayar * 0.8 + 'px';
+            top.style.height = tinggiLayar * 0.3 + 'px';
+            bot.style.height = tinggiLayar * 0.6 + 'px';
+
+            team1Size.style.fontSize = lebarLayar * 0.06 + 'px';
+            team2Size.style.fontSize = lebarLayar * 0.06 + 'px';
+
+            sc1Size.style.fontSize = lebarLayar * 0.26 + 'px';
+            sc2Size.style.fontSize = lebarLayar * 0.26 + 'px';
         };
+
+        function getData() {
+            var score1 = document.getElementById('score1');
+            var score2 = document.getElementById('score2');
+            var onTab = localStorage.getItem('JSON-memoOtak-noTab');
+            var dataDisplay = JSON.parse(localStorage.getItem('DATA'))
+            var con = localStorage.getItem('con');
+            var dataList = JSON.parse(localStorage.getItem('dataList'));
+            var lastData = `data${dataDisplay.totalTab}`
+            
+            var dataArray = dataList[lastData].slice(2).split(",");
+            var dataLength = dataArray.length - 1;
+            var sc, sc1, sc2;
+            var index;
+
+            sc1 = 0;
+            sc2 = 0;
+
+            
+
+            if (con == 1) {
+                
+                for (i = 0; i <= dataLength - 1; i++) {
+                    if (dataArray[i].length == 1) {
+                        sc = 1;
+                    } else {
+                        sc = parseInt(dataArray[i].slice(1), 10)
+                    }
+
+                    switch (dataArray[i][0]) {
+                    case 'a':
+                        index = 1;
+                        break;
+                    case 'b':
+                        index = 2;
+                        break;
+                    default:
+                        index = 0;
+                    }
+
+                    if (index == 1) {
+                        score1.innerHTML += sc
+                    } else {
+                        score2.innerHTML += sc
+                    }
+                    
+                }
+            } else if (con == 2) {
+
+                for (i = 0; i <= dataLength; i++) {
+
+                    if (dataArray[i].length == 1) {
+                        sc = 1;
+                    } else {
+                        sc = parseInt(dataArray[i].slice(1), 10)
+                    }
+
+                    switch (dataArray[i][0]) {
+                    case 'a':
+                        index = 1;
+                        break;
+                    case 'b':
+                        index = 1;
+                        break;
+                    case 'c':
+                        index = 2;
+                        break;
+                    case 'd':
+                        index = 2;
+                        break;
+                    default:
+                        index = 0;
+                    }
+
+                    console.log(sc)
+                    console.log(score1.innerHTML)
+
+                    if (index == 1) {
+                        sc1 += sc
+                    } else {
+                        sc2 += sc
+                    }
+                }
+            } 
+            
+            if (dataLength == 0) {
+                sc1 = 0;
+                sc2 = 0;
+            }
+            console.log(sc1)
+            score1.innerHTML = sc1
+            score2.innerHTML = sc2
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+{
+  "name": "scorepapan",
+  "version": "1.9.2.4",
+  "description": "Proyek papan skor bulu tangkis yang menggabungkan antara catatan wasit dengan papan skor itu sendiri",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "node:http": "^0.0.0"
+  }
+}
