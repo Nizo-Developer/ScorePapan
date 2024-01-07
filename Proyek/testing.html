@@ -3,40 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This in HTML</title>
   <style>
-    #menuMain {
-      max-height: fit-content;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    #menuMain.expanded {
-      max-height: 400px;
+    .highlight {
+      color: red;
     }
   </style>
 </head>
 <body>
 
-<button onclick="advSetting()">Toggle Menu</button>
-<div id="menuMain">Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</div>
+<button onclick="highlightText(this)">Click me</button>
+<p id="demo">Hello, World!</p>
 
 <script>
-  function advSetting() {
-    var menuMain = document.getElementById("menuMain");
+  console.log(this.navigator.userAgent);
+  console.log(this.window.location.href); // URL lengkap di jendela peramban
+  console.log(this.location.href); // URL lengkap halaman web
+  console.log(this.history.length); // Jumlah entri dalam riwayat peramban
 
-    if (!menuMain.classList.contains('expanded')) {
-      // Ambil tinggi kontennya secara dinamis
-      var contentHeight = menuMain.scrollHeight + "px";
-      // Atur max-height ke tinggi konten
-      menuMain.style.maxHeight = contentHeight;
-      // Tambahkan kelas expanded
-      menuMain.classList.add('expanded');
-    } else {
-      // Atur max-height ke fit-content
-      menuMain.style.maxHeight = "fit-content";
-      // Hapus kelas expanded
-      menuMain.classList.remove('expanded');
-    }
+  function highlightText(element) {
+    element.classList.add("highlight");
   }
 </script>
 

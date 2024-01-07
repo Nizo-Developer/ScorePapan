@@ -1,9 +1,11 @@
-var score1 = 1;
-var score2 = 1;
+var score1 = 0;
+var score2 = 0;
 var onLoad = 0;
 var streak = 0;
 var adv = 0;
 var fitHeight;
+var tabWinCon = 0;
+
 var spareTabData = {
     streak: ["-", 0]
 }
@@ -142,11 +144,34 @@ function menuEnter() {
     var nameTabValue = document.getElementById('tabName').value;
     var nameTab = document.getElementById('tabName');
     
-    if (nameTabValue) {
-        newTab(nameTabValue)
+    if (tabWinCon > 0) {
+        if (nameTabValue) {
+            newTab(nameTabValue)
+        }
+        menuClose();
+        nameTab.innerHTML = '';
+    } else if (tabWinCon == 0) {
+        warnMenu();
     }
-    menuClose();
-    nameTab.innerHTML = '';
+}
+
+function warnMenu() {
+    var warn = document.getElementById('warn');
+    var warnBg = document.getElementById('menuBg');
+    var body = document.getElementById('body');
+    
+    body.style.overflowY = 'hidden';
+    warn.style.opacity = '1';
+    warnBg.style.opacity = '1';
+    warnBg.style.display = "flex";
+    
+    if (adv == 1) {
+        arrow.className += ' fa-flip-vertical';
+        warnBg.style.height = "400px";
+        warn.style.top = '300px';
+    } else {
+        warn.style.top = '100px';
+    }
 }
 
 function advSetting() {
@@ -314,23 +339,7 @@ function inputing() {
             console.log(dataList)
             console.log(JSON.parse(localStorage.getItem('dataList')))
         }
-
-        var dataLs = JSON.parse(localStorage.getItem("DATA"));
-        var onTab = localStorage.getItem('JSON-memoOtak-noTab');
-
-        console.log(dataLs.totalTab)
-        console.log(onTab)
-
-        if (dataLs.totalTab == onTab) {
-            if ((score1 > 21 && score1 - score2 >= 2) || score1 == 31) {
-                win(1)
-            } else if ((score2 > 21 && score2 - score1 >= 2) || score2 == 31) {
-                win(2)
-            }
-        } else {
-            var btnContainer = document.getElementById('btnContainer')
-            btnContainer.style.display = 'flex';
-        }
+        win()
     }
 
 
@@ -402,11 +411,35 @@ function notif(con, p, teaming, team, noTab) {
     }
 };
 
-function win(who) {
-    var btnContainer = document.getElementById('btnContainer')
-    btnContainer.style.display = 'none';
+function win() {
+    var btnContainer = document.getElementById('btnContainer');
+    var dataLs = JSON.parse(localStorage.getItem("DATA"));
+    var onTab = localStorage.getItem('JSON-memoOtak-noTab');
 
-    openMenu()
+    if (dataLs.totalTab == onTab) {
+        console.log('woyyyyyyyyyyy')
+        if ((score1 > 21 && score1 - score2 >= 2) || score1 == 31) {
+            btnContainer.style.display = 'none';
+            tabWinCon = 1;
+            openMenu()
+        } else if ((score2 > 21 && score2 - score1 >= 2) || score2 == 31) {
+            btnContainer.style.display = 'none';
+            openMenu()
+            tabWinCon = 2;
+        } else {
+            btnContainer.style.display = 'flex';
+            tabWinCon = 0;
+        }
+    } else {
+        console.log('watteeehelllll')
+        btnContainer.style.display = 'none';
+
+        if ((score1 > 21 && score1 - score2 >= 2) || score1 == 31) {
+            tabWinCon = 1;
+        } else if ((score2 > 21 && score2 - score1 >= 2) || score2 == 31) {
+            tabWinCon = 2;
+        }
+    }
 };
 
 function newTab(nama) {
@@ -587,6 +620,7 @@ function loadTab(tabIndex) {
     } else {
         console.log("ya gmn ya tapi datanya blm ada")
     }
+    win()
     if (onLoad !== 2) {
         onLoad = 0;
     }
