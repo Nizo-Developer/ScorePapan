@@ -93,12 +93,16 @@
     <div id="warn" class="warn">
         <div class="menu-wrapping">
             <div class="warn-head">
+                <p><i class="fa-solid fa-triangle-exclamation" style="color: #ffffff;"></i> Warning!</p>
             </div>
             <div class="warn-main" id="warnMain" style="gap: 10px;">
-                <div class="warn-enter" onclick="warnEnter()"><i class="fa-solid fa-circle-plus" style="margin-right: 5px;"></i>Add New Match</div>
-                <div class="warn-close" onclick="warnClose()"><i class="fa-solid fa-circle-xmark" style="margin-right: 5px;"></i>Cancel</div>
+                <p>Are you sure you want to create the next tab (match)? The current tab will no longer be editable!</p>
             </div>
-            <div class="menu-foot" onclick="advSetting()">
+            <div class="warn-foot">
+                <div class="warn-btn">
+                    <div class="warn-enter" onclick="warnEnter()"><i class="fa-solid fa-circle-plus" style="margin-right: 5px;"></i>Yes</div>
+                    <div class="warn-close" onclick="warnClose()"><i class="fa-solid fa-circle-xmark" style="margin-right: 5px;"></i>Cancel</div>
+                </div>
             </div>
         </div>
     </div>

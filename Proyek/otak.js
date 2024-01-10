@@ -156,22 +156,42 @@ function menuEnter() {
 }
 
 function warnMenu() {
+    menuClose()
     var warn = document.getElementById('warn');
     var warnBg = document.getElementById('menuBg');
     var body = document.getElementById('body');
     
     body.style.overflowY = 'hidden';
     warn.style.opacity = '1';
+    warn.style.display = 'flex';
+    warn.style.top = '300px';
     warnBg.style.opacity = '1';
     warnBg.style.display = "flex";
+}
+
+function warnClose() {
+    var warn = document.getElementById('warn');
+    var warnBg = document.getElementById('menuBg');
+    var body = document.getElementById('body');
     
-    if (adv == 1) {
-        arrow.className += ' fa-flip-vertical';
-        warnBg.style.height = "400px";
-        warn.style.top = '300px';
-    } else {
-        warn.style.top = '100px';
+    body.style.overflowY = 'visible';
+    warn.style.top = '-200px';
+    warn.style.opacity = '0';
+    warn.style.display = 'none';
+    warnBg.style.opacity = '0';
+    warnBg.style.display = "none";
+}
+
+function warnEnter() {
+    var nameTabValue = document.getElementById('tabName').value;
+    var nameTab = document.getElementById('tabName');
+    
+    if (nameTabValue) {
+        newTab(nameTabValue)
     }
+    nameTab.innerHTML = '';
+    menuClose();
+    warnClose();
 }
 
 function advSetting() {
@@ -505,6 +525,9 @@ function newTab(nama) {
         console.log(localStorage.getItem("DATA"))
     }
     console.log(localStorage.getItem("DATA"))
+    if (onLoad == 0) {
+        loadTab(tabData.totalTab)
+    }
 }
 
 function loadData() {
