@@ -94,6 +94,7 @@ function setSize() {
     var wobject = parseFloat(window.getComputedStyle(object).getPropertyValue("width"));
     var iobject = document.getElementById("tabName");
     var warn = document.getElementById('warn');
+    var warnText = document.getElementById('warnText');
 
     var lebarLayar = window.innerWidth;
 
@@ -107,8 +108,16 @@ function setSize() {
 
     if (lebarLayar < 600) {
         warn.style.width = '90%';
+        warnText.style.fontSize = lebarLayar * 0.05 + 'px';
     } else {
         warn.style.width = 500 + 'px'
+    }
+    
+    if ((lebarLayar * 0.05) < 18) {
+        warnText.style.fontSize = lebarLayar * 0.05 + 'px';
+    }
+    else {
+        warnText.style.fontSize = '18px';
     }
 
     iobject.style.width = lebarLayar * 0.2 + 'px';

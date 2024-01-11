@@ -1,8 +1,8 @@
 :root {
     --ptb:  5px;
     --height: 35px;
-    --maintance-menu: none;
-    --maintance-warn: none;
+    --maintance-menu: flex;
+    --maintance-warn: flex;
 }
 
 * {
@@ -18,7 +18,7 @@
     display: var(--maintance-warn);
     background-color: #d4b356;
     align-items: center;
-    top: 200px;
+    top: -200px;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 22;
@@ -72,6 +72,7 @@
     height: 100%;
     width: 100%;
     display: var(--maintance-warn);
+    flex-direction: column;
 }
 
 .warn-btn {
