@@ -2,6 +2,7 @@
     --ptb:  5px;
     --height: 35px;
     --maintance-menu: 'none';
+    --maintance-warn: 'flex';
 }
 
 * {
@@ -15,10 +16,10 @@
     height: fit-content;
     border-radius: 3px;
     position: fixed;
-    display: var(--maintance-menu);
+    display: var(--maintance-warn);
     background-color: #d4b356;
     align-items: center;
-    top: -200px;
+    top: 200px;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 22;

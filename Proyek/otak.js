@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // console.log(co)
         .catch(error => console.error('Error:', error));
         
-        window.addEventListener('keydown', handleKeyPress);
+        // window.addEventListener('keydown', handleKeyPress);
         window.addEventListener('resize', setSize)
 })
 
@@ -93,6 +93,7 @@ function setSize() {
     var object = document.getElementById('menu')
     var wobject = parseFloat(window.getComputedStyle(object).getPropertyValue("width"));
     var iobject = document.getElementById("tabName");
+    var warn = document.getElementById('warn');
 
     var lebarLayar = window.innerWidth;
 
@@ -100,6 +101,14 @@ function setSize() {
         object.style.width = lebarLayar * 0.4 + 'px';
     } else {
         object.style.width = 300 + 'px'
+    }
+
+    console.log(lebarLayar)
+
+    if (lebarLayar < 600) {
+        warn.style.width = '90%';
+    } else {
+        warn.style.width = 500 + 'px'
     }
 
     iobject.style.width = lebarLayar * 0.2 + 'px';
@@ -177,7 +186,6 @@ function warnClose() {
     body.style.overflowY = 'visible';
     warn.style.top = '-200px';
     warn.style.opacity = '0';
-    warn.style.display = 'none';
     warnBg.style.opacity = '0';
     warnBg.style.display = "none";
 }
@@ -468,8 +476,8 @@ function newTab(nama) {
     var colorBg;
     
     // Contoh penggunaan: mendapatkan angka bulat acak antara 1 dan 10
-    var randColor = hexColors[randInt(0, hexColors.length-1)];
-    console.log(randColor)
+    // var randColor = hexColors[randInt(0, hexColors.length-1)];
+    // console.log(randColor)
     
     tabData.totalTab++
 
@@ -677,29 +685,29 @@ function loadTab(tabIndex) {
 
 //ALAM BAWAH (DEVELOPER TOOL)
 
-function handleKeyPress(event) {
-    if (event.key === 'r') {
-      konfirmasi();
-    }
-  }
+// function handleKeyPress(event) {
+//     if (event.key === 'r') {
+//       konfirmasi();
+//     }
+//   }
   
-  function konfirmasi() {
-    var hasil = prompt("Apakah Anda yakin ingin menghapus data Local Storage?");
+//   function konfirmasi() {
+//     var hasil = prompt("Apakah Anda yakin ingin menghapus data Local Storage?");
   
-    if (hasil !== null) {
-      hasil = hasil.toLowerCase();
-      if (hasil === "ya") {
-        localStorage.clear()
-        alert("Local Storage di hapus!");
-        window.location.href = '../index.html';
-      } else {
-        alert("Input tidak valid.");
-      }
-    } else {
-      alert("Anda telah membatalkan.");
-    }
-}
+//     if (hasil !== null) {
+//       hasil = hasil.toLowerCase();
+//       if (hasil === "ya") {
+//         localStorage.clear()
+//         alert("Local Storage di hapus!");
+//         window.location.href = '../index.html';
+//       } else {
+//         alert("Input tidak valid.");
+//       }
+//     } else {
+//       alert("Anda telah membatalkan.");
+//     }
+// }
 
-function randInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function randInt(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
