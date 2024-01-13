@@ -733,24 +733,17 @@
         //ALAM BAWAH (DEVELOPER TOOL)
 
         function handleKeyPress(event) {
-            if (event.key === 'r') {
-              konfirmasi();
+            if (event.key === '`') {
+                konfirmasi();
             }
-          }
+        }
 
-          function konfirmasi() {
-            var hasil = prompt("Apakah Anda yakin ingin menghapus data Local Storage?");
+        function konfirmasi() {
+            var hasil = confirm("Apakah Anda yakin ingin menghapus data Local Storage?");
         
-            if (hasil !== null) {
-              hasil = hasil.toLowerCase();
-              if (hasil === "ya") {
-                localStorage.clear()
+            if (hasil == true) {
+                localStorage.clear();
                 alert("Local Storage di hapus!");
-              } else {
-                alert("Input tidak valid.");
-              }
-            } else {
-              alert("Anda telah membatalkan.");
             }
         }
     </script>
