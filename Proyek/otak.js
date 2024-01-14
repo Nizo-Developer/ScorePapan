@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
         })
-                      
+
             // window.open('score-display.html', '_blank');
             // console.log("ULANG")
             // console.log(co)
@@ -262,9 +262,9 @@ function inputing() {
         var p = 4
         var k = 2
     }
-    var numBox = document.createElement("div")
-    numBox.setAttribute("class", "num")
-    baris.appendChild(numBox)
+    var numBox = document.createElement("div");
+    numBox.setAttribute("class", "num");
+    baris.appendChild(numBox);
     numBox.innerHTML = (score1 + score2) - 1;
 
     //Looping 4x untuk membuat 4 kolom (td)
@@ -273,11 +273,12 @@ function inputing() {
         var kolom = document.createElement("div")
         kolom.setAttribute("class", "box-v")
         if (numBox.innerHTML%2 == 1) {
-            colorBg = '#707070'
+            colorBg = '#f8f8ff';
         } else {
-            colorBg = '#4d4d4d'
+            colorBg = '#cfceca';
         }
         kolom.style.backgroundColor = colorBg;
+        kolom.style.color = '#262739';
         //Menambahkan si kolom (tr) ke baris (td)
         //Sistemnya kyk variabel yang belum di print
         baris.appendChild(kolom)
