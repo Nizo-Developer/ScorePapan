@@ -123,7 +123,7 @@
             setTimeout(() => {
                 // Redirect to the desired URL
                 window.location.href = 'score-display.html';
-            }, 5000);
+            }, 10000);
 
             
             window.addEventListener('resize', tingginya);
@@ -153,96 +153,102 @@
         function getData() {
             var score1 = document.getElementById('score1');
             var score2 = document.getElementById('score2');
-            var onTab = localStorage.getItem('JSON-memoOtak-noTab');
-            var dataDisplay = JSON.parse(localStorage.getItem('DATA'))
+            var win1 = document.getElementById('win1');
+            var win2 = document.getElementById('win2');
+
             var con = localStorage.getItem('con');
+            var onTab = localStorage.getItem('JSON-memoOtak-noTab');
             var dataList = JSON.parse(localStorage.getItem('dataList'));
-            var lastData = `data${dataDisplay.totalTab}`
-            
-            var dataArray = dataList[lastData].slice(2).split(",");
-            var dataLength = dataArray.length - 1;
+            var dataDisplay = JSON.parse(localStorage.getItem('DATA'));
+
             var sc, sc1, sc2;
             var index;
+
+            console.log(dataArray)
 
             sc1 = 0;
             sc2 = 0;
 
+            for (x = 1; x <= dataDisplay.totalTab; x++) {
+                var dataArray = dataList[`data${x}`].slice(2).split(",");
+                var dataLength = dataArray.length;
+                console.log(dataArray)
+                console.log(dataLength)
+                console.log(dataLength)
+
             
-
-            if (con == 1) {
-                
                 for (i = 0; i <= dataLength - 1; i++) {
+                    console.log("WHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                     if (dataArray[i].length == 1) {
                         sc = 1;
                     } else {
                         sc = parseInt(dataArray[i].slice(1), 10)
                     }
-
-                    switch (dataArray[i][0]) {
-                    case 'a':
-                        index = 1;
-                        break;
-                    case 'b':
-                        index = 2;
-                        break;
-                    default:
-                        index = 0;
+    
+                    if (con == 1) {
+                        switch (dataArray[i][0]) {
+                        case 'a':
+                            index = 1;
+                            break;
+                        case 'b':
+                            index = 2;
+                            break;
+                        default:
+                            index = 0;
+                        }
+                        
+                    } else if (con == 2) {
+                        switch (dataArray[i][0]) {
+                        case 'a':
+                            index = 1;
+                            break;
+                        case 'b':
+                            index = 1;
+                            break;
+                        case 'c':
+                            index = 2;
+                            break;
+                        case 'd':
+                            index = 2;
+                            break;
+                        default:
+                            index = 0;
+                        }
+    
                     }
-
-                    if (index == 1) {
-                        score1.innerHTML += sc
-                    } else {
-                        score2.innerHTML += sc
-                    }
-                    
-                }
-            } else if (con == 2) {
-
-                for (i = 0; i <= dataLength; i++) {
-
-                    if (dataArray[i].length == 1) {
-                        sc = 1;
-                    } else {
-                        sc = parseInt(dataArray[i].slice(1), 10)
-                    }
-
-                    switch (dataArray[i][0]) {
-                    case 'a':
-                        index = 1;
-                        break;
-                    case 'b':
-                        index = 1;
-                        break;
-                    case 'c':
-                        index = 2;
-                        break;
-                    case 'd':
-                        index = 2;
-                        break;
-                    default:
-                        index = 0;
-                    }
-
-                    console.log(sc)
-                    console.log(score1.innerHTML)
-
+                    // if ((score1 > 21 && score1 - score2 >= 2) || score1 == 31) {
+                    //     tabWinCon = 1;
+                    // } else if ((score2 > 21 && score2 - score1 >= 2) || score2 == 31) {
+                    //     tabWinCon = 2;
+                    // }
                     if (index == 1) {
                         sc1 += sc
-                    } else {
+                    } else if (index == 2) {
                         sc2 += sc
                     }
+                    (score2 > 21 && score2 - score1 >= 2) || score2 == 31
+                    if (index == 1 && x < dataDisplay.totalTab) {
+                        sc1 += sc
+                    } else if (index == 2 && x < dataDisplay.totalTab) {
+                        sc2 += sc
+                    }
+                } 
+                if (x == dataDisplay.totalTab) {
+                    if (dataLength == 0) {
+                        sc1 = 0;
+                        sc2 = 0;
+                    }
+                    console.log(sc1)
+                    console.log(sc2)
+                    score1.innerHTML = sc1
+                    score2.innerHTML = sc2
+                } else {
+                    sc1 = 0;
+                    sc2 = 0;
                 }
-            } 
-            
-            if (dataLength == 0) {
-                sc1 = 0;
-                sc2 = 0;
             }
-            console.log(sc1)
-            console.log(sc2)
-            score1.innerHTML = sc1
-            score2.innerHTML = sc2
         }
+
     </script>
 </body>
 </html>

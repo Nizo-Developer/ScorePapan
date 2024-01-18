@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // console.log(co)
         .catch(error => console.error('Error:', error));
         
-        // window.addEventListener('keydown', handleKeyPress);
+        window.addEventListener('keydown', handleKeyPress);
         window.addEventListener('resize', setSize)
 })
 
@@ -478,6 +478,11 @@ function win() {
             tabWinCon = 2;
         }
     }
+
+    if (dataLs.totalTab == 0) {
+        btnContainer.style.display = 'flex';
+        tabWinCon = 0
+    }
 };
 
 function newTab(nama) {
@@ -695,29 +700,18 @@ function loadTab(tabIndex) {
 
 //ALAM BAWAH (DEVELOPER TOOL)
 
-// function handleKeyPress(event) {
-//     if (event.key === 'r') {
-//       konfirmasi();
-//     }
-//   }
-  
-//   function konfirmasi() {
-//     var hasil = prompt("Apakah Anda yakin ingin menghapus data Local Storage?");
-  
-//     if (hasil !== null) {
-//       hasil = hasil.toLowerCase();
-//       if (hasil === "ya") {
-//         localStorage.clear()
-//         alert("Local Storage di hapus!");
-//         window.location.href = '../index.html';
-//       } else {
-//         alert("Input tidak valid.");
-//       }
-//     } else {
-//       alert("Anda telah membatalkan.");
-//     }
-// }
+function handleKeyPress(event) {
+    if (event.key === '`') {
+        konfirmasi();
+    }
+}
 
-// function randInt(min, max) {
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+function konfirmasi() {
+    var hasil = confirm("Apakah Anda yakin ingin menghapus data Local Storage?");
+
+    if (hasil == true) {
+        localStorage.clear();
+        alert("Local Storage di hapus!");
+        window.location.href = '../index.html'
+    }
+}
