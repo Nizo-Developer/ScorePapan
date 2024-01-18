@@ -153,8 +153,8 @@
         function getData() {
             var score1 = document.getElementById('score1');
             var score2 = document.getElementById('score2');
-            var win1 = document.getElementById('win1');
-            var win2 = document.getElementById('win2');
+            var winner1 = document.getElementById('win1');
+            var winner2 = document.getElementById('win2');
 
             var con = localStorage.getItem('con');
             var onTab = localStorage.getItem('JSON-memoOtak-noTab');
@@ -162,13 +162,16 @@
             var dataDisplay = JSON.parse(localStorage.getItem('DATA'));
 
             var sc, sc1, sc2;
+            var win, win1, win2;
             var index;
 
             console.log(dataArray)
 
             sc1 = 0;
             sc2 = 0;
-
+            win1 = 0;
+            win2 = 0;
+            
             for (x = 1; x <= dataDisplay.totalTab; x++) {
                 var dataArray = dataList[`data${x}`].slice(2).split(",");
                 var dataLength = dataArray.length;
@@ -226,13 +229,15 @@
                     } else if (index == 2) {
                         sc2 += sc
                     }
-                    (score2 > 21 && score2 - score1 >= 2) || score2 == 31
-                    if (index == 1 && x < dataDisplay.totalTab) {
-                        sc1 += sc
-                    } else if (index == 2 && x < dataDisplay.totalTab) {
-                        sc2 += sc
-                    }
+                    
                 } 
+                console.log(x, sc1, sc2)
+                if (((sc1 > 20 && sc1 - sc2 >= 2) || sc1 == 31) && x < dataDisplay.totalTab) {
+                    win1++
+                } else if (((sc2 > 20 && sc2 - sc1 >= 2) || sc2 == 31) && x < dataDisplay.totalTab) {
+                    win2++
+                }
+
                 if (x == dataDisplay.totalTab) {
                     if (dataLength == 0) {
                         sc1 = 0;
@@ -242,6 +247,8 @@
                     console.log(sc2)
                     score1.innerHTML = sc1
                     score2.innerHTML = sc2
+                    winner1.innerHTML = win1
+                    winner2.innerHTML = win2
                 } else {
                     sc1 = 0;
                     sc2 = 0;

@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch("memo-otak.json")
         .then(response => response.json())
         .then(data => {
+
+            
             co = data
 
             var baF = 0;
