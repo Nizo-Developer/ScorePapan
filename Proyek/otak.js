@@ -80,13 +80,23 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
         
         window.addEventListener('keydown', handleKeyPress);
-        window.addEventListener('resize', setSize)
+        window.addEventListener('resize', setSize);
+        window.addEventListener('load', adaptCon);
 })
 
 
 //custom console log; mwehe jd lebih singkat contoh cl("hello world")
 function cl(conlog) {
     console.log(conlog)
+}
+
+function adaptCon() {
+    console.log(window.location.pathname)
+    if (window.location.pathname.includes('solo')) {
+        localStorage.setItem("con", 1);
+    } else if (window.location.pathname.includes('duo')) {
+        localStorage.setItem("con", 2);
+    }
 }
 
 function setSize() {
