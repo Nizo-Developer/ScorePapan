@@ -4,10 +4,11 @@
   "description": "Proyek papan skor bulu tangkis yang menggabungkan antara catatan wasit dengan papan skor itu sendiri",
   "main": "index.js",
   "dependencies": {
+    "cookie-parse": "^0.4.0",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "http": "^0.0.0"
   },
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
